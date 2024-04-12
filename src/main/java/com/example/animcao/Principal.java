@@ -8,6 +8,8 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -15,7 +17,7 @@ import javafx.scene.text.Font;
 
 public class Principal extends Application {
     public int k=0;
-    private Text K,texto,Seta,SetaA,vetCT,vetBT,textoM,indice,titulo,indiceText;
+    private Text K,texto,Seta,SetaA,vetCT,vetBT,textoM,indice,titulo,indiceText,end,SetaAux,indiceA;
     AnchorPane pane;
     Button botao_inicio;
 
@@ -106,37 +108,30 @@ public class Principal extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         stage.setTitle("Pesquisa e Ordenacao");
 
         pane = new AnchorPane();
         pane.setStyle("-fx-background-color: #222222; -fx-border-color: #7f7f7f; -fx-border-width: 2px;");
-        pane.setPrefSize(1600, 900); // Definindo tamanho da tela
+        pane.setPrefSize(1600, 900);
         botao_inicio = new Button();
         botao_inicio.setText("Iniciar");
         botao_inicio.setFont(new Font(14));
-        botao_inicio.setOnAction(e -> {
-
-            move_botoes();
-        });
+        botao_inicio.setOnAction(e -> move_botoes());
         pane.getChildren().add(botao_inicio);
         botao_inicio.setLayoutX(750);
         botao_inicio.setLayoutY(780);
-        // Adicionando o nome do vetor
-         titulo = new Text("COUNTING SORT:");
 
+        titulo = new Text("COUNTING SORT:");
         titulo.setLayoutX(600);
         titulo.setLayoutY(50);
         titulo.setFont(new Font(20));
         titulo.setFill(Color.WHITE);
         pane.getChildren().add(titulo);
 
-
-
         gerarVetor(vet);
 
         K = new Text("K: " + k);
-        K.setFill(Color.BLUE);
+        K.setFill(Color.CYAN);
         K.setFont(new Font(14));
         pane.getChildren().add(K);
 
@@ -145,8 +140,13 @@ public class Principal extends Application {
         Seta.setFont(new Font(40));
         pane.getChildren().add(Seta);
 
+        SetaAux = new Text("↑");
+        SetaAux.setFill(Color.GREEN);
+        SetaAux.setFont(new Font(40));
+        pane.getChildren().add(SetaAux);
+
         SetaA = new Text("↑");
-        SetaA.setFill(Color.BLUE);
+        SetaA.setFill(Color.CYAN);
         SetaA.setFont(new Font(40));
         pane.getChildren().add(SetaA);
 
@@ -161,7 +161,7 @@ public class Principal extends Application {
         pane.getChildren().add(vetBT);
 
         textoM = new Text("maior");
-        textoM.setFill(Color.BLUE);
+        textoM.setFill(Color.CYAN);
         textoM.setFont(new Font(14));
         pane.getChildren().add(textoM);
 
@@ -169,19 +169,40 @@ public class Principal extends Application {
         indice.setFill(Color.RED);
         indice.setFont(new Font(14));
         pane.getChildren().add(indice);
+
+        indiceA = new Text("indiceA");
+        indiceA.setFill(Color.GREEN);
+        indiceA.setFont(new Font(14));
+        pane.getChildren().add(indiceA);
+
+        end = new Text("FINALIZADO");
         Codigo = new Text[20];
         alocarCodigo(Codigo);
 
+        VBox codeContainer = new VBox();
+        codeContainer.setStyle("-fx-background-color: #515151; -fx-border-color: #011b2f; -fx-border-width: 2px; -fx-border-radius: 2px");
         for (int i = 0; i < Codigo.length ; i++) {
             Codigo[i].setFill(Color.WHITE);
-            Codigo[i].setFont(new Font(14));
-            Codigo[i].setLayoutX(1200);
-
+            Codigo[i].setFont(new Font(20));
+            Codigo[i].setLayoutX(1150);
             Codigo[i].setLayoutY((i+5)*15);
-
-
-            pane.getChildren().add(Codigo[i]);
+            codeContainer.getChildren().add(Codigo[i]);
         }
+        Codigo[0].setFill(Color.RED);
+        pane.getChildren().add(codeContainer);
+        BorderPane root = new BorderPane();
+        root.setStyle("-fx-background-color: #000000;");
+        botao_inicio.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+        titulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+
+        Text tituloCodigo = new Text("Código");
+        tituloCodigo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+        pane.getChildren().add(tituloCodigo);
+        AnchorPane.setTopAnchor(tituloCodigo, 10.0);
+        AnchorPane.setRightAnchor(tituloCodigo, 170.0);
+        AnchorPane.setRightAnchor(codeContainer, 10.0);
+        AnchorPane.setTopAnchor(codeContainer, 50.0);
+
         Scene scene = new Scene(pane,1600,900);
         stage.setScene(scene);
         stage.show();
@@ -195,10 +216,28 @@ public class Principal extends Application {
             @Override
             protected Void call() {
                 //valor de K
+
                 int maior = 0;
+                Platform.runLater(() -> {
+                    Codigo[0].setFill(Color.WHITE);
+                    Codigo[1].setFill(Color.RED);
+                });
                 for (i = 0; i < vet.length; i++) {
                     int value = Integer.parseInt(vet[i].getText());
+                    Platform.runLater(() -> {
+                        Codigo[1].setFill(Color.WHITE);
+                    });
+
                     k = Math.max(k, value);
+                    Platform.runLater(() -> {
+                        Codigo[2].setFill(Color.RED);
+                        Codigo[3].setFill(Color.WHITE);
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     if (value > maior) {
                         maior = value;
                         Platform.runLater(() -> {
@@ -214,6 +253,8 @@ public class Principal extends Application {
                         indice.setLayoutY(225);
                         Seta.setLayoutX(150 + i * 60);
                         Seta.setLayoutY(210);
+                        Codigo[3].setFill(Color.RED);
+                        Codigo[2].setFill(Color.WHITE);
                     });
 
                     try {
@@ -236,11 +277,15 @@ public class Principal extends Application {
 
 
                 int[] C = new int[k];
+                Platform.runLater(() -> {
+                    Codigo[3].setFill(Color.WHITE);
+
+                    Codigo[5].setFill(Color.RED);
+                    //pane.getChildren().removeAll(Seta, SetaA,indice,textoM);
+                });
                 vetC = new Button[k];
                 for (i = 0; i < k; i++) {
                     vetC[i] = new Button("0");
-
-
                     Platform.runLater(() -> {
                         vetC[i].setLayoutX(150 + i * 60);
                         vetC[i].setLayoutY(230);
@@ -265,9 +310,20 @@ public class Principal extends Application {
                 }
 
 
-                for (i = 0; i < vet.length; i++) {
+                for (i = 0; i < vet.length; i++)
+                {
                     int valor = Integer.parseInt(vet[i].getText());
                     C[valor]++;
+                    Platform.runLater(() -> {
+                        Codigo[5].setFill(Color.WHITE);
+                        Codigo[6].setFill(Color.RED);
+                        Codigo[7].setFill(Color.WHITE);
+                    });
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     final int buttonIndex = valor;
                     Platform.runLater(() -> {
                         vetC[buttonIndex].setText(String.valueOf(C[buttonIndex]));
@@ -284,6 +340,8 @@ public class Principal extends Application {
                         Seta.setFill(Color.RED);
                         Seta.setLayoutX(150 + buttonIndex * 60);
                         Seta.setLayoutY(310);
+                        Codigo[6].setFill(Color.WHITE);
+                        Codigo[7].setFill(Color.RED);
                     });
 
                     try {
@@ -294,6 +352,16 @@ public class Principal extends Application {
                 }
 
                 for (int i = 1; i <= k-1 ; i++) {
+                    Platform.runLater(() -> {
+                        Codigo[7].setFill(Color.WHITE);
+                        Codigo[9].setFill(Color.RED);
+                        Codigo[10].setFill(Color.WHITE);
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     C[i] += C[i-1];
                     int valor = Integer.parseInt(vetC[i].getText());
                     final int buttonIndex = valor;
@@ -311,6 +379,8 @@ public class Principal extends Application {
                         vetC[buttonIndex].setMinHeight(40);
                         vetC[buttonIndex].setMinWidth(40);
                         vetC[buttonIndex].setFont(new Font(14));
+                        Codigo[9].setFill(Color.WHITE);
+                        Codigo[10].setFill(Color.RED);
                     });
                     try {
                         Thread.sleep(200);
@@ -328,6 +398,7 @@ public class Principal extends Application {
 
                 vetB = new Button[vet.length];
                 for (i = 0; i < vet.length; i++) {
+
                     final int buttonIndex = i;
                     Platform.runLater(() -> {
                         vetB[buttonIndex] = new Button("0");
@@ -356,11 +427,45 @@ public class Principal extends Application {
                     B[C[vet[i]] - 1] = vet[i];
                     C[vet[i]]--;
                 }*/
+                Platform.runLater(() -> {
+                    Codigo[10].setFill(Color.WHITE);
+                    Codigo[12].setFill(Color.RED);
+
+                    //pane.getChildren().removeAll(Seta, SetaA,indice,textoM);
+                });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 for (int i = vet.length - 1; i >= 0; i--) {
                     int index = Integer.parseInt(vet[i].getText());
-                    if (C[index] - 1 >= 0 && C[index] - 1 < vetB.length) { // Verifica se o índice é válido
+                    if (C[index] - 1 >= 0 && C[index] - 1 < vetB.length) { // Verifica se o índice é válido$
+                        Platform.runLater(() -> {
+
+                            Codigo[13].setFill(Color.RED);
+                            Codigo[12].setFill(Color.WHITE);
+                            Codigo[14].setFill(Color.WHITE);
+                            //pane.getChildren().removeAll(Seta, SetaA,indice,textoM);
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         int buttonIndex = C[index] - 1;
                         B[buttonIndex] = index;
+                        Platform.runLater(() -> {
+                            Codigo[14].setFill(Color.RED);
+                            Codigo[12].setFill(Color.WHITE);
+                            Codigo[13].setFill(Color.WHITE);;
+                            //pane.getChildren().removeAll(Seta, SetaA,indice,textoM);
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         C[index]--;
                         Platform.runLater(() -> {
                             indice.setLayoutX(150 + buttonIndex * 60);
@@ -373,9 +478,11 @@ public class Principal extends Application {
                             vetB[buttonIndex].setMinHeight(40);
                             vetB[buttonIndex].setMinWidth(40);
                             vetB[buttonIndex].setFont(new Font(14));
+                            Codigo[12].setFill(Color.RED);
+                            Codigo[13].setFill(Color.WHITE);
+                            Codigo[14].setFill(Color.WHITE);
+
                         });
-                    } else {
-                        System.out.println("Índice inválido: " + (C[index] - 1));
                     }
                     try {
                         Thread.sleep(200);
@@ -417,8 +524,29 @@ public class Principal extends Application {
                         e.printStackTrace();
                     }
                 }
+                Platform.runLater(() -> {
+                    Codigo[12].setFill(Color.WHITE);
+                    Codigo[17].setFill(Color.WHITE);
+                    Codigo[16].setFill(Color.RED);
+                });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 textoM.setText("indice");
+
+
                 for ( i = 0; i < vet.length; i++) {
+                    Platform.runLater(() -> {
+                        Codigo[17].setFill(Color.RED);
+                        Codigo[16].setFill(Color.WHITE);
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Platform.runLater(() -> {
                         Seta.setLayoutX(150 + i * 60);
                         Seta.setLayoutY(400);
@@ -431,12 +559,33 @@ public class Principal extends Application {
                         indice.setLayoutY(420);
 
                         vet[i].setText(String.valueOf(B[i]));
+
+
+
+                        Codigo[17].setFill(Color.WHITE);
+                        Codigo[16].setFill(Color.RED);
                     });
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                }
+
+                Platform.runLater(() -> {
+                    Codigo[16].setFill(Color.WHITE);
+
+                    end.setText("FINALIZADO");
+                    end.setLayoutX(600);
+                    end.setLayoutY(550);
+                    end
+                    end.setFill(Color.GREEN);
+                    pane.getChildren().add(end);
+                });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 return null;
