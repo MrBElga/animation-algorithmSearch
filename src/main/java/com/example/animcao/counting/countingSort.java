@@ -1,11 +1,10 @@
-package com.example.animcao;
+package com.example.animcao.counting;
 
 import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.DepthTest;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -15,9 +14,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
-public class Principal extends Application {
+public class countingSort extends Application {
     public int k=0;
-    private Text K,texto,Seta,SetaA,vetCT,vetBT,textoM,indice,titulo,indiceText,end,SetaAux,indiceA;
+    private Text K,texto,Seta,SetaA,vetCT,vetBT,vetOrd,textoM,indice,titulo,indiceText,end,SetaAux,indiceA;
     AnchorPane pane;
     Button botao_inicio;
 
@@ -159,6 +158,11 @@ public class Principal extends Application {
         vetBT.setFill(Color.WHITE);
         vetBT.setFont(new Font(14));
         pane.getChildren().add(vetBT);
+
+        vetOrd = new Text("VetOrd:");
+        vetOrd.setFill(Color.WHITE);
+        vetOrd.setFont(new Font(14));
+        pane.getChildren().add(vetOrd);
 
         textoM = new Text("maior");
         textoM.setFill(Color.CYAN);
@@ -508,9 +512,8 @@ public class Principal extends Application {
 
 
                 Platform.runLater(() -> {
-                    vetBT.setText("Vet Ordenado: ");
-                    vetBT.setLayoutX(48);
-                    vetBT.setLayoutY(460);
+                    vetOrd.setLayoutX(50);
+                    vetOrd.setLayoutY(460);
                 });
                 Arrays.fill(vet, new Button("0"));
                 for(i = 0; i < vet.length; i++){
