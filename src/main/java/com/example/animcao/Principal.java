@@ -5,11 +5,11 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.DepthTest;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -176,11 +176,18 @@ public class Principal extends Application {
         pane.getChildren().add(indiceA);
 
         end = new Text("FINALIZADO");
+        end.setFont(new Font(25));
+
         Codigo = new Text[20];
         alocarCodigo(Codigo);
 
         VBox codeContainer = new VBox();
-        codeContainer.setStyle("-fx-background-color: #515151; -fx-border-color: #011b2f; -fx-border-width: 2px; -fx-border-radius: 2px");
+        codeContainer.setStyle("-fx-background-color: #515151; -fx-border-color: #022c10; -fx-border-width: 2px; -fx-border-radius: 2px");
+        codeContainer.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setOffsetX(2);
+        dropShadow.setOffsetY(2);
+        codeContainer.setEffect(dropShadow);
         for (int i = 0; i < Codigo.length ; i++) {
             Codigo[i].setFill(Color.WHITE);
             Codigo[i].setFont(new Font(20));
@@ -188,6 +195,7 @@ public class Principal extends Application {
             Codigo[i].setLayoutY((i+5)*15);
             codeContainer.getChildren().add(Codigo[i]);
         }
+
         Codigo[0].setFill(Color.RED);
         pane.getChildren().add(codeContainer);
         BorderPane root = new BorderPane();
@@ -297,8 +305,8 @@ public class Principal extends Application {
 
                         indiceText = new Text(String.valueOf(i));
                         indiceText.setFill(Color.WHITE);
-                        indiceText.setLayoutX(vetC[i].getLayoutX() + 20); // Posição do índice abaixo do botão
-                        indiceText.setLayoutY(vetC[i].getLayoutY() + 60); // Deslocamento para baixo
+                        indiceText.setLayoutX(vetC[i].getLayoutX() + 20);
+                        indiceText.setLayoutY(vetC[i].getLayoutY() + 60);
                         pane.getChildren().add(indiceText);
                     });
 
@@ -411,8 +419,8 @@ public class Principal extends Application {
 
                         indiceText = new Text(String.valueOf(buttonIndex));
                         indiceText.setFill(Color.WHITE);
-                        indiceText.setLayoutX(vetB[buttonIndex].getLayoutX() + 20); // Posição do índice abaixo do botão
-                        indiceText.setLayoutY(vetB[buttonIndex].getLayoutY() + 60); // Deslocamento para baixo
+                        indiceText.setLayoutX(vetB[buttonIndex].getLayoutX() + 20);
+                        indiceText.setLayoutY(vetB[buttonIndex].getLayoutY() + 60);
                         pane.getChildren().add(indiceText);
                     });
                     try {
@@ -438,9 +446,9 @@ public class Principal extends Application {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                for (int i = vet.length - 1; i >= 0; i--) {
+                for ( i = vet.length - 1; i >= 0; i--) {
                     int index = Integer.parseInt(vet[i].getText());
-                    if (C[index] - 1 >= 0 && C[index] - 1 < vetB.length) { // Verifica se o índice é válido$
+                    if (C[index] - 1 >= 0 && C[index] - 1 < vetB.length) {
                         Platform.runLater(() -> {
 
                             Codigo[13].setFill(Color.RED);
@@ -478,6 +486,13 @@ public class Principal extends Application {
                             vetB[buttonIndex].setMinHeight(40);
                             vetB[buttonIndex].setMinWidth(40);
                             vetB[buttonIndex].setFont(new Font(14));
+
+                            indiceA.setLayoutX(150 + i * 60);
+                            indiceA.setLayoutY(225);
+                            SetaAux.setLayoutX(150 + i * 60);
+                            SetaAux.setLayoutY(210);
+
+
                             Codigo[12].setFill(Color.RED);
                             Codigo[13].setFill(Color.WHITE);
                             Codigo[14].setFill(Color.WHITE);
@@ -513,8 +528,8 @@ public class Principal extends Application {
 
                         indiceText = new Text(String.valueOf(i));
                         indiceText.setFill(Color.WHITE);
-                        indiceText.setLayoutX(vet[i].getLayoutX() + 20); // Posição do índice abaixo do botão
-                        indiceText.setLayoutY(vet[i].getLayoutY() + 60); // Deslocamento para baixo
+                        indiceText.setLayoutX(vet[i].getLayoutX() + 20);
+                        indiceText.setLayoutY(vet[i].getLayoutY() + 60);
                         pane.getChildren().add(indiceText);
                     });
 
@@ -578,7 +593,6 @@ public class Principal extends Application {
                     end.setText("FINALIZADO");
                     end.setLayoutX(600);
                     end.setLayoutY(550);
-                    end
                     end.setFill(Color.GREEN);
                     pane.getChildren().add(end);
                 });
