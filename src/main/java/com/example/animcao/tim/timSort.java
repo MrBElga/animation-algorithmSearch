@@ -64,24 +64,23 @@
             }
         }
         public void tim() {
-            int runs = 32,TL = 14;
+            int runs = 2,TL = 14;
             int run = tamMin(runs);
 
 
             for (int i = 0; i < TL; i += run) {
                 insercaoDiretaTim(i, min((i + runs - 1), (TL - 1)));
                 printVet();
-
             }
 
-            for (int tam = run; tam < TL; tam = 2 * tam) {
+            for (int tam = run; tam < TL; tam = 2 * tam)
                 for (int esq = 0; esq < TL; esq += 2 * tam) {
                     int meio = esq + tam - 1;
                     int dir = min((esq + 2 * tam - 1), (TL - 1));
                     if (meio < dir)
                         mergeTim(esq, meio, dir);
                 }
-            }
+
         }
         public static void main(String[] args) {
             vet = new int[14];
