@@ -340,7 +340,7 @@ public class algoritimo extends Application {
                                 Platform.runLater(() -> vet[finalI].setLayoutY(vet[finalI].getLayoutY() - 5));
                                 Platform.runLater(() -> vet[finalI-1].setLayoutY(vet[finalI-1].getLayoutY() + 5));
                                 try {
-                                    Thread.sleep(50);
+                                    Thread.sleep(5);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -352,7 +352,7 @@ public class algoritimo extends Application {
                                 Platform.runLater(() -> vet[finalI].setLayoutX(vet[finalI].getLayoutX() - stepX));
                                 Platform.runLater(() -> vet[finalI-1].setLayoutX(vet[finalI-1].getLayoutX() + stepX));
                                 try {
-                                    Thread.sleep(50);
+                                    Thread.sleep(5);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -364,7 +364,7 @@ public class algoritimo extends Application {
                                 Platform.runLater(() -> vet[finalI].setLayoutY(vet[finalI].getLayoutY() + 5));
                                 Platform.runLater(() -> vet[finalI-1].setLayoutY(vet[finalI-1].getLayoutY() - 5));
                                 try {
-                                    Thread.sleep(50);
+                                    Thread.sleep(5);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -395,15 +395,14 @@ public class algoritimo extends Application {
                     // Adicionar o novo botão ao array
                     vetNovo[l] = botao;
                 }
-
-// Substituir os botões antigos pelos novos
+                vetCopia = vet;
                 vet = vetNovo;
 
                 printVetB(vet);
                 printVet(vetT);
 
                 int finalI1 = i;
-                Button[] vetCopia = new Button[vet.length];
+
                 Platform.runLater(() -> {
                     Text vetCopT = new Text("Vet: ");
                     vetCopT.setFill(Color.WHITE);
@@ -415,24 +414,22 @@ public class algoritimo extends Application {
                     texto.setText("Vet Após insercao Direta: ");
                     texto.setLayoutY(210);
                     int deslocamentoY = 120;
+
                     for (int l = 0; l < vet.length; l++) {
-                        vetCopia[l] = new Button();
-                        vetCopia[l].setText(vet[l].getText());
-                        vetCopia[l].setLayoutX(150 + l * 60);
-                        vetCopia[l].setLayoutY(100 + deslocamentoY);
-                        vetCopia[l].setMinHeight(40);
-                        vetCopia[l].setMinWidth(40);
-                        vetCopia[l].setFont(new Font(14));
-                        pane.getChildren().add(vetCopia[l]);
-
-
+                        vet[l].setLayoutX(150 + l * 60); // Atualizar o layout do novo botão
                         Text indiceCop = new Text(String.valueOf(l));
                         indiceCop.setFill(Color.WHITE);
-                        indiceCop.setLayoutX(vetCopia[l].getLayoutX() + 20);
-                        indiceCop.setLayoutY(vetCopia[l].getLayoutY() + 60);
+                        indiceCop.setLayoutX(vet[l].getLayoutX() + 20);
+                        indiceCop.setLayoutY(vet[l].getLayoutY() + 60);
                         pane.getChildren().add(indiceCop);
 
-                        vet[l].setLayoutY(100 + deslocamentoY);
+                        vet[l].setLayoutY(100 + deslocamentoY); // Atualizar o layout do novo botão
+                        Text indice = new Text(String.valueOf(l));
+                        indice.setFill(Color.WHITE);
+                        indice.setLayoutX(vet[l].getLayoutX() + 20); // Posição do índice abaixo do botão
+                        indice.setLayoutY(vet[l].getLayoutY() + 60); // Deslocamento para baixo
+                        pane.getChildren().add(indice);
+                        pane.getChildren().add(vet[l]);
                     }
                 });
 
