@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c9dfade-be69-4277-b3c8-9b5f83c0737a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +52,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Aluno/Desktop/animation-algorithmSearch",
     "node.js.detected.package.eslint": "true",
@@ -163,6 +159,7 @@
       <workItem from="1712929862646" duration="2007000" />
       <workItem from="1712961703934" duration="3762000" />
       <workItem from="1713016832421" duration="8175000" />
+      <workItem from="1713031193059" duration="7525000" />
     </task>
     <servers />
   </component>

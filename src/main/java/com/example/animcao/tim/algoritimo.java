@@ -1,7 +1,11 @@
 package com.example.animcao.tim;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -17,15 +21,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 public class algoritimo extends Application {
 
+    public double diffX,stepX;
     public int k=0;
     private Text K,texto,Seta,SetaA,indice,titulo,indiceText,end,SetaAux,indiceA;
     private Text runT, runsT, TLT,esqT,dirT,posT;
     AnchorPane pane;
     Button botao_inicio;
-    private Button []vet;
+    private Button []vet,vetCopia;
     private Text[] CodigoT, CodigoI, CodigoM;
     private VBox codeContainer;
     private ComboBox<String> codeSelector;
@@ -63,9 +69,9 @@ public class algoritimo extends Application {
         codigo[0] = new Text("public void tim() {");
         codigo[1] = new Text("     int runs = 32,TL = 14;");
         codigo[2] = new Text("     int run = tamMin(runs);");
-        codigo[3] = new Text("     for (int i = 0; i < TL; i += run)");
+        codigo[3] = new Text("     for (int i = 0; i < TL; i += runs)");
         codigo[4] = new Text("        insercaoDiretaTim(i, min((i + runs - 1), (TL - 1)));");
-        codigo[5] = new Text("     for (int tam = run; tam < TL; tam = 2 * tam)");
+        codigo[5] = new Text("     for (int tam = runs; tam < TL; tam = 2 * tam)");
         codigo[6] = new Text("         for (int esq = 0; esq < TL; esq += 2 * tam) {");
         codigo[7] = new Text("            int meio = esq + tam - 1;");
         codigo[8] = new Text("            int dir = min((esq + 2 * tam - 1), (TL - 1));");
@@ -98,18 +104,21 @@ public class algoritimo extends Application {
         texto = new Text("Vet:");
         texto.setFill(Color.WHITE);
         texto.setLayoutX(50);
-        texto.setLayoutY(85);
+        texto.setLayoutY(120);
         texto.setFont(new Font(14));
         pane.getChildren().add(texto);
 
         // Adicionando os botões representando o vetor
         vet = new Button[tamanhoVetor];
+        int valorAleatorio = 14;
         for (int i = 0; i < tamanhoVetor; i++) {
-            int valorAleatorio = random.nextInt(1000); // Gerando número aleatório entre 0 e 99
+
+                    //random.nextInt(1000); // Gerando número aleatório entre 0 e 99
 
             vet[i] = new Button(String.valueOf(valorAleatorio));
+            valorAleatorio--;
             vet[i].setLayoutX(150 + i * 60); // Espaçamento entre os botões
-            vet[i].setLayoutY(60);
+            vet[i].setLayoutY(100);
             vet[i].setMinHeight(40);
             vet[i].setMinWidth(40);
             vet[i].setFont(new Font(14));
@@ -236,9 +245,9 @@ public class algoritimo extends Application {
                     vetT[i] = Integer.parseInt(vet[i].getText());
                 }
 
-                //vai ter os valores das variveis runs, run e TL
+                //vai ter os valores das variveis runs, e TL
 
-                int runs = 2,TL = 14,run,tam=runs,i=0;
+                int runs = 5,TL = 14,tam=runs,i=0;
                 int finalTam = tam;
                 Platform.runLater(() -> {
                     Text tamT = new Text("tam: "+ finalTam);
@@ -247,76 +256,189 @@ public class algoritimo extends Application {
                     tamT.setFont(new Font(14));
                     tamT.setFill(Color.WHITE);
                     tamT.setLayoutX(50);
-                    tamT.setLayoutY(150);
+                    tamT.setLayoutY(50);
                     pane.getChildren().add(tamT);
                     runsT.setFont(new Font(14));
                     runsT.setFill(Color.WHITE);
                     runsT.setLayoutX(100);
-                    runsT.setLayoutY(150);
+                    runsT.setLayoutY(50);
                     pane.getChildren().add(runsT);
                     TLT.setFont(new Font(14));
                     TLT.setFill(Color.WHITE);
                     TLT.setLayoutX(150);
-                    TLT.setLayoutY(150);
+                    TLT.setLayoutY(50);
                     pane.getChildren().add(TLT);
                     CodigoT[1].setFill(Color.WHITE);
                     CodigoT[2].setFill(Color.RED);
                 });
 
-                //tamanho do run defino
-                while (tam >= runs) {
-                    tam /= runs;
-                    i++;
-                }
-                run = tam + i;
-                Platform.runLater(() -> {
-                    runT = new Text("run: "+run);
-                    runT.setFont(new Font(14));
-                    runT.setFill(Color.WHITE);
-                    runT.setLayoutX(200);
-                    runT.setLayoutY(150);
-                    pane.getChildren().add(runT);
-                    CodigoT[2].setFill(Color.WHITE);
-                    CodigoT[3].setFill(Color.RED);
-                });
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
 
                 //insercao direta
-                for ( i = 0; i < TL; i += run) {
+                for ( i = 0; i < TL; i += runs) {
                     int esq=i , dir=min((i+runs-1), (TL - 1)),pos, aux,j;
+                    System.out.println(esq);
+                    System.out.println(dir);
                     //mostrar na tela o codigo da insercao direta e as variveis esq dir pos e aux
                     Platform.runLater(() -> {
                         esqT = new Text("esq: "+esq);
                         esqT.setFont(new Font(14));
                         esqT.setFill(Color.WHITE);
                         esqT.setLayoutX(50);
-                        esqT.setLayoutY(160);
+                        esqT.setLayoutY(75);
                         pane.getChildren().add(esqT);
-                        dirT = new Text("dirT: "+esq);
+
+                        dirT = new Text("dirT: "+dir);
                         dirT.setFont(new Font(14));
                         dirT.setFill(Color.WHITE);
                         dirT.setLayoutX(100);
-                        dirT.setLayoutY(160);
+                        dirT.setLayoutY(75);
                         pane.getChildren().add(dirT);
                         CodigoT[2].setFill(Color.WHITE);
                         CodigoT[3].setFill(Color.RED);
                     });
-                    for (j = esq + 1; i <= dir; i++) {
-                        aux = vetT[i];
-                        pos = i;
+        /*
+                    //permutação na tela
+                    for (int i = 0; i < 10; i++) {
+                        Platform.runLater(() -> vet[0].setLayoutY(vet[0].getLayoutY() + 5));
+                        Platform.runLater(() -> vet[1].setLayoutY(vet[1].getLayoutY() - 5));
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    for (int i = 0; i < 16; i++) {
+                        Platform.runLater(() -> vet[0].setLayoutX(vet[0].getLayoutX() + 5));
+                        3
+                        Platform.runLater(() -> vet[1].setLayoutX(vet[1].getLayoutX() - 5));
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    for (int i = 0; i < 10; i++) {
+                        Platform.runLater(() -> vet[0].setLayoutY(vet[0].getLayoutY() - 5));
+                        Platform.runLater(() -> vet[1].setLayoutY(vet[1].getLayoutY() + 5));
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }*/
+
+                    for (j = esq + 1; j <= dir; j++) {
+                        aux = vetT[j];
+                        pos = j;
                         while (pos > esq && vetT[pos - 1] > aux) {
-                            vet[pos] = vet[pos - 1];
+                            //subindo a segunda variavel
+                            int finalI = pos;
+                            for (int l = 0; l < 10; l++) {
+
+                                //subindo vetT[i]
+                                Platform.runLater(() -> vet[finalI].setLayoutY(vet[finalI].getLayoutY() - 5));
+                                Platform.runLater(() -> vet[finalI-1].setLayoutY(vet[finalI-1].getLayoutY() + 5));
+                                try {
+                                    Thread.sleep(50);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            diffX = vet[finalI].getLayoutX() - vet[finalI-1].getLayoutX();
+                            stepX = diffX / 16;
+                            for (int l = 0; l < 16; l++) {
+
+                                Platform.runLater(() -> vet[finalI].setLayoutX(vet[finalI].getLayoutX() - stepX));
+                                Platform.runLater(() -> vet[finalI-1].setLayoutX(vet[finalI-1].getLayoutX() + stepX));
+                                try {
+                                    Thread.sleep(50);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            for (int l = 0; l < 10; l++) {
+
+                                //subindo vetT[i]
+                                Platform.runLater(() -> vet[finalI].setLayoutY(vet[finalI].getLayoutY() + 5));
+                                Platform.runLater(() -> vet[finalI-1].setLayoutY(vet[finalI-1].getLayoutY() - 5));
+                                try {
+                                    Thread.sleep(50);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            vetT[pos] = vetT[pos -1];
                             pos--;
                         }
                         vetT[pos] = aux;
                     }
+                    Platform.runLater(() -> pane.getChildren().remove(esqT));
+                    Platform.runLater(() -> pane.getChildren().remove(dirT));
                 }
+                Platform.runLater(() -> pane.getChildren().add(esqT));
+                Platform.runLater(() -> pane.getChildren().add(dirT));
+
+                Button[] vetNovo = new Button[vet.length]; // Criar um novo array de botões
+
+                for (int l = 0; l < vetT.length; l++) {
+                    String valorBotao = String.valueOf(vetT[l]); // Converter o valor inteiro para uma string
+                    Button botao = new Button(valorBotao); // Criar um novo botão com o texto correspondente
+                    // Copiar as propriedades visuais do botão anterior (se necessário)
+                    botao.setLayoutX(vet[l].getLayoutX());
+                    botao.setLayoutY(vet[l].getLayoutY());
+                    botao.setMinWidth(vet[l].getMinWidth());
+                    botao.setMinHeight(vet[l].getMinHeight());
+                    botao.setFont(vet[l].getFont());
+                    // Adicionar o novo botão ao array
+                    vetNovo[l] = botao;
+                }
+
+// Substituir os botões antigos pelos novos
+                vet = vetNovo;
+
+                printVetB(vet);
+                printVet(vetT);
+
+                int finalI1 = i;
+                Button[] vetCopia = new Button[vet.length];
+                Platform.runLater(() -> {
+                    Text vetCopT = new Text("Vet: ");
+                    vetCopT.setFill(Color.WHITE);
+                    vetCopT.setLayoutX(50);
+                    vetCopT.setLayoutY(120);
+                    vetCopT.setFont(new Font(14));
+                    pane.getChildren().add(vetCopT);
+
+                    texto.setText("Vet Após insercao Direta: ");
+                    texto.setLayoutY(210);
+                    int deslocamentoY = 120;
+                    for (int l = 0; l < vet.length; l++) {
+                        vetCopia[l] = new Button();
+                        vetCopia[l].setText(vet[l].getText());
+                        vetCopia[l].setLayoutX(150 + l * 60);
+                        vetCopia[l].setLayoutY(100 + deslocamentoY);
+                        vetCopia[l].setMinHeight(40);
+                        vetCopia[l].setMinWidth(40);
+                        vetCopia[l].setFont(new Font(14));
+                        pane.getChildren().add(vetCopia[l]);
+
+
+                        Text indiceCop = new Text(String.valueOf(l));
+                        indiceCop.setFill(Color.WHITE);
+                        indiceCop.setLayoutX(vetCopia[l].getLayoutX() + 20);
+                        indiceCop.setLayoutY(vetCopia[l].getLayoutY() + 60);
+                        pane.getChildren().add(indiceCop);
+
+                        vet[l].setLayoutY(100 + deslocamentoY);
+                    }
+                });
+
+
                 //iniciando merge
-                for (tam = run; tam < TL; tam = 2 * tam)
+                for (tam = runs; tam < TL; tam = 2 * tam)
                     for (int esq = 0; esq < TL; esq += 2 * tam) {
                         int meio = esq + tam - 1;
                         int dir = min((esq + 2 * tam - 1), (TL - 1));
@@ -362,4 +484,16 @@ public class algoritimo extends Application {
             System.out.print(num + " ");
         }
     }
+
+
+    public void printVetB(Button[] vetT){
+        System.out.println("\nArray:");
+        for (Button button : vetT) {
+            // Se você quiser imprimir o texto do botão, use getText()
+            System.out.print(button.getText() + " ");
+            // Ou se você quiser imprimir outra propriedade, use o método apropriado
+        }
+    }
+
+
 }
