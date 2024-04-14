@@ -975,12 +975,16 @@ public class TimSort extends Application {
                                 Platform.runLater(()->{
                                     CodigoM[9].setFill(Color.WHITE);
                                     CodigoM[10].setFill(Color.RED);
-                                    Seta.setLayoutX(vetor1[iAux].getLayoutX());
-                                    Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    if(vetor1.length >iAux) {
+                                        Seta.setLayoutX(vetor1[iAux].getLayoutX());
+                                        Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    }
                                     SetaA.setLayoutX(vet[k].getLayoutX());
                                     SetaA.setLayoutY(vet[k].getLayoutY() + 70);
-                                    SetaAux.setLayoutX(vetor2[j].getLayoutX());
-                                    SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    if(vetor2.length >j){
+                                        SetaAux.setLayoutX(vetor2[j].getLayoutX());
+                                        SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    }
                                     indiceAux.setText(" j");
                                     indiceAux.setLayoutX(SetaAux.getLayoutX());
                                     indiceAux.setLayoutY(SetaAux.getLayoutY() + 10);
@@ -1126,12 +1130,16 @@ public class TimSort extends Application {
                                 Platform.runLater(()->{
                                     CodigoM[15].setFill(Color.WHITE);
                                     CodigoM[16].setFill(Color.RED);
-                                    Seta.setLayoutX(vetor1[iAux].getLayoutX());
-                                    Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    if(vetor1.length >iAux) {
+                                        Seta.setLayoutX(vetor1[iAux].getLayoutX());
+                                        Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    }
                                     SetaA.setLayoutX(vet[k].getLayoutX());
                                     SetaA.setLayoutY(vet[k].getLayoutY() + 70);
-                                    SetaAux.setLayoutX(vetor2[j].getLayoutX());
-                                    SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    if(vetor2.length >j){
+                                        SetaAux.setLayoutX(vetor2[j].getLayoutX());
+                                        SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    }
                                     indiceAux.setText(" j");
                                     indiceAux.setLayoutX(SetaAux.getLayoutX());
                                     indiceAux.setLayoutY(SetaAux.getLayoutY() + 10);
@@ -1208,12 +1216,16 @@ public class TimSort extends Application {
                                 Platform.runLater(()->{
                                     CodigoM[17].setFill(Color.WHITE);
                                     CodigoM[18].setFill(Color.RED);
-                                    Seta.setLayoutX(vetor1[iAux].getLayoutX());
-                                    Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    if(vetor1.length >iAux) {
+                                        Seta.setLayoutX(vetor1[iAux].getLayoutX());
+                                        Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    }
                                     SetaA.setLayoutX(vet[k].getLayoutX());
                                     SetaA.setLayoutY(vet[k].getLayoutY() + 70);
-                                    SetaAux.setLayoutX(vetor2[j].getLayoutX());
-                                    SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    if(vetor2.length >j){
+                                        SetaAux.setLayoutX(vetor2[j].getLayoutX());
+                                        SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    }
                                     indiceAux.setText(" j");
                                     indiceAux.setLayoutX(SetaAux.getLayoutX());
                                     indiceAux.setLayoutY(SetaAux.getLayoutY() + 10);
