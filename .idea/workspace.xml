@@ -7,9 +7,9 @@
     <list default="true" id="4c9dfade-be69-4277-b3c8-9b5f83c0737a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/timSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/timSort.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,29 +44,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CountingSortAnimation.executor": "Run",
-    "Application.Principal.executor": "Run",
-    "Application.Principal2.executor": "Run",
-    "Application.algoritimo.executor": "Run",
-    "Application.countingSort.executor": "Run",
-    "Application.timSort.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Aluno/Desktop/animation-algorithmSearch",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CountingSortAnimation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Principal2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.algoritimo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.countingSort.executor&quot;: &quot;Run&quot;,
+    &quot;Application.timSort.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Aluno/Desktop/animation-algorithmSearch&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Desktop\animation-algorithmSearch\src" />
@@ -164,25 +164,49 @@
       <workItem from="1713016832421" duration="8175000" />
       <workItem from="1713031193059" duration="14315000" />
       <workItem from="1713053243161" duration="4316000" />
-      <workItem from="1713063165201" duration="15007000" />
+      <workItem from="1713063165201" duration="15237000" />
+      <workItem from="1713105623715" duration="6436000" />
+      <workItem from="1713114028444" duration="4431000" />
+      <workItem from="1713118537659" duration="3799000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java</url>
-          <line>66</line>
+          <line>68</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java</url>
-          <line>35</line>
+          <line>41</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java</url>
+          <line>357</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/animcao/tim/timSort.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.RuntimeException" package="java.lang" />
