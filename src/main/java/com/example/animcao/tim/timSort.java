@@ -69,14 +69,14 @@
 
 
             for (int i = 0; i < TL; i += run) {
-                insercaoDiretaTim(i, min((i + runs - 1), (TL - 1)));
+                insercaoDiretaTim(i,  Math.min((i + runs - 1), (TL - 1)));
                 printVet();
             }
 
             for (int tam = run; tam < TL; tam = 2 * tam)
                 for (int esq = 0; esq < TL; esq += 2 * tam) {
                     int meio = esq + tam - 1;
-                    int dir = min((esq + 2 * tam - 1), (TL - 1));
+                    int dir = Math.min((esq + 2 * tam - 1), (TL - 1));
                     if (meio < dir)
                         mergeTim(esq, meio, dir);
                 }
@@ -85,8 +85,9 @@
         public static void main(String[] args) {
             vet = new int[14];
             Random random = new Random();
+            int j = 14;
             for (int i = 0; i < 14; i++) {
-                vet[i] = random.nextInt(100);            }
+                vet[i] = j--;            }
             System.out.println("Array randomico:");
             for (int num : vet) {
                 System.out.print(num + " ");

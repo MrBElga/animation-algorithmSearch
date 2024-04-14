@@ -1,34 +1,27 @@
 package com.example.animcao.tim;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
-import javafx.animation.TranslateTransition;
+import java.util.Random;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
+
 
 public class algoritimo extends Application {
 
     public double diffX,stepX;
-    public int k=0;
-    private Text K,texto,Seta,SetaA,indice,titulo,indiceText,end,SetaAux,indiceA;
-    private Text runT, runsT, TLT,esqT,dirT,posT;
+    public int k=0, i=0,j=0,l=0;
+    private Text texto,Seta,SetaA,indice,titulo,end,SetaAux;
+    private Text runsT,esqT,dirT;
     AnchorPane pane;
     Button botao_inicio;
     private Button []vet,vetCopia;
@@ -186,9 +179,6 @@ public class algoritimo extends Application {
         alocarCodigoInsercao(CodigoI);
         CodigoM = new Text[20];
         alocarCodigoMerge(CodigoM);
-
-        // Container para o código
-
         VBox codeContainer = new VBox();
         codeContainer.setStyle("-fx-background-color: #515151; -fx-border-color: #022c10; -fx-border-width: 2px; -fx-border-radius: 2px");
         codeContainer.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
@@ -224,9 +214,15 @@ public class algoritimo extends Application {
         stage.show();
     }
 
+
+
     public void move_botoes() {
 
         Task<Void> task = new Task<Void>(){
+            int finalKt, finalIAux =0 ,iAux = 0,esq=0,pos=0,tam;
+            int[] vet1, vet2;
+            Button[] vetor1,vetor2;
+            Text tituloVet1,tituloVet2;
             @Override
             protected Void call() {
                 int[] vetT = new int[14];
@@ -241,16 +237,20 @@ public class algoritimo extends Application {
                     e.printStackTrace();
                 }
 
-                for (int i = 0; i <vet.length ; i++) {
+                for (i = 0; i <vet.length ; i++) {
                     vetT[i] = Integer.parseInt(vet[i].getText());
                 }
 
                 //vai ter os valores das variveis runs, e TL
 
-                int runs = 5,TL = 14,tam=runs,i=0;
-                int finalTam = tam;
+                int runs = 2;
+                int TL = 14;
+                tam=runs;
+                i=0;
+                int run = tamMin(runs);
+                System.out.println(runs+" "+TL+" "+tam+" "+run);
                 Platform.runLater(() -> {
-                    Text tamT = new Text("tam: "+ finalTam);
+                    Text tamT = new Text("tam: "+ tam);
                     runsT = new Text("runs: "+runs);
                     Text TLT = new Text("TL: "+ TL);
                     tamT.setFont(new Font(14));
@@ -273,15 +273,13 @@ public class algoritimo extends Application {
                 });
 
 
-
                 //insercao direta
-                for ( i = 0; i < TL; i += runs) {
-                    int esq=i , dir=min((i+runs-1), (TL - 1)),pos, aux,j;
-                    System.out.println(esq);
-                    System.out.println(dir);
+                for ( i = 0; i < TL; i += run) {
+                    int esq= i , dir=Math.min((i+runs-1), (TL - 1)), aux,j;
+
                     //mostrar na tela o codigo da insercao direta e as variveis esq dir pos e aux
                     Platform.runLater(() -> {
-                        esqT = new Text("esq: "+esq);
+                        esqT = new Text("esq: "+ esq);
                         esqT.setFont(new Font(14));
                         esqT.setFill(Color.WHITE);
                         esqT.setLayoutX(50);
@@ -297,183 +295,362 @@ public class algoritimo extends Application {
                         CodigoT[2].setFill(Color.WHITE);
                         CodigoT[3].setFill(Color.RED);
                     });
-        /*
-                    //permutação na tela
-                    for (int i = 0; i < 10; i++) {
-                        Platform.runLater(() -> vet[0].setLayoutY(vet[0].getLayoutY() + 5));
-                        Platform.runLater(() -> vet[1].setLayoutY(vet[1].getLayoutY() - 5));
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    for (int i = 0; i < 16; i++) {
-                        Platform.runLater(() -> vet[0].setLayoutX(vet[0].getLayoutX() + 5));
-                        3
-                        Platform.runLater(() -> vet[1].setLayoutX(vet[1].getLayoutX() - 5));
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    for (int i = 0; i < 10; i++) {
-                        Platform.runLater(() -> vet[0].setLayoutY(vet[0].getLayoutY() - 5));
-                        Platform.runLater(() -> vet[1].setLayoutY(vet[1].getLayoutY() + 5));
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }*/
 
                     for (j = esq + 1; j <= dir; j++) {
                         aux = vetT[j];
                         pos = j;
                         while (pos > esq && vetT[pos - 1] > aux) {
-                            //subindo a segunda variavel
-                            int finalI = pos;
-                            for (int l = 0; l < 10; l++) {
 
+                            //subindo a segunda variavel
+                            for (l = 0; l < 10; l++) {
                                 //subindo vetT[i]
-                                Platform.runLater(() -> vet[finalI].setLayoutY(vet[finalI].getLayoutY() - 5));
-                                Platform.runLater(() -> vet[finalI-1].setLayoutY(vet[finalI-1].getLayoutY() + 5));
+                                Platform.runLater(() ->{ vet[pos].setLayoutY(vet[pos].getLayoutY() - 5);
+                                                         vet[pos-1].setLayoutY(vet[pos-1].getLayoutY() + 5);
+                                });
                                 try {
-                                    Thread.sleep(5);
+                                    Thread.sleep(50);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             }
-                            diffX = vet[finalI].getLayoutX() - vet[finalI-1].getLayoutX();
+                            diffX = vet[pos].getLayoutX() - vet[pos-1].getLayoutX();
                             stepX = diffX / 16;
                             for (int l = 0; l < 16; l++) {
-
-                                Platform.runLater(() -> vet[finalI].setLayoutX(vet[finalI].getLayoutX() - stepX));
-                                Platform.runLater(() -> vet[finalI-1].setLayoutX(vet[finalI-1].getLayoutX() + stepX));
+                                Platform.runLater(() -> {vet[pos].setLayoutX(vet[pos].getLayoutX() - stepX);
+                                                         vet[pos-1].setLayoutX(vet[pos-1].getLayoutX() + stepX);
+                                });
                                 try {
-                                    Thread.sleep(5);
+                                    Thread.sleep(50);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             }
-
                             for (int l = 0; l < 10; l++) {
-
                                 //subindo vetT[i]
-                                Platform.runLater(() -> vet[finalI].setLayoutY(vet[finalI].getLayoutY() + 5));
-                                Platform.runLater(() -> vet[finalI-1].setLayoutY(vet[finalI-1].getLayoutY() - 5));
+                                Platform.runLater(() -> {vet[pos].setLayoutY(vet[pos].getLayoutY() + 5);
+                                                        vet[pos-1].setLayoutY(vet[pos-1].getLayoutY() - 5);
+                                });
                                 try {
-                                    Thread.sleep(5);
+                                    Thread.sleep(50);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-
                             }
                             vetT[pos] = vetT[pos -1];
                             pos--;
                         }
                         vetT[pos] = aux;
                     }
-                    Platform.runLater(() -> pane.getChildren().remove(esqT));
-                    Platform.runLater(() -> pane.getChildren().remove(dirT));
+                    Platform.runLater(() -> {pane.getChildren().remove(esqT);
+                                             pane.getChildren().remove(dirT);
+                    });
                 }
-                Platform.runLater(() -> pane.getChildren().add(esqT));
-                Platform.runLater(() -> pane.getChildren().add(dirT));
+                Platform.runLater(() -> {pane.getChildren().add(esqT);
+                                         pane.getChildren().add(dirT);
+                });
 
                 Button[] vetNovo = new Button[vet.length]; // Criar um novo array de botões
-
                 for (int l = 0; l < vetT.length; l++) {
-                    String valorBotao = String.valueOf(vetT[l]); // Converter o valor inteiro para uma string
-                    Button botao = new Button(valorBotao); // Criar um novo botão com o texto correspondente
+                    Button botao = new Button(String.valueOf(vetT[l])); // Criar um novo botão com o texto correspondente
                     // Copiar as propriedades visuais do botão anterior (se necessário)
                     botao.setLayoutX(vet[l].getLayoutX());
                     botao.setLayoutY(vet[l].getLayoutY());
                     botao.setMinWidth(vet[l].getMinWidth());
                     botao.setMinHeight(vet[l].getMinHeight());
                     botao.setFont(vet[l].getFont());
-                    // Adicionar o novo botão ao array
                     vetNovo[l] = botao;
                 }
-                vetCopia = vet;
                 vet = vetNovo;
 
-                printVetB(vet);
-                printVet(vetT);
-
-                int finalI1 = i;
-
-                Platform.runLater(() -> {
+                Platform.runLater(()-> {
                     Text vetCopT = new Text("Vet: ");
                     vetCopT.setFill(Color.WHITE);
                     vetCopT.setLayoutX(50);
                     vetCopT.setLayoutY(120);
                     vetCopT.setFont(new Font(14));
                     pane.getChildren().add(vetCopT);
-
                     texto.setText("Vet Após insercao Direta: ");
                     texto.setLayoutY(210);
-                    int deslocamentoY = 120;
 
                     for (int l = 0; l < vet.length; l++) {
                         vet[l].setLayoutX(150 + l * 60); // Atualizar o layout do novo botão
-                        Text indiceCop = new Text(String.valueOf(l));
-                        indiceCop.setFill(Color.WHITE);
-                        indiceCop.setLayoutX(vet[l].getLayoutX() + 20);
-                        indiceCop.setLayoutY(vet[l].getLayoutY() + 60);
-                        pane.getChildren().add(indiceCop);
-
-                        vet[l].setLayoutY(100 + deslocamentoY); // Atualizar o layout do novo botão
+                        vet[l].setLayoutY(220); // Atualizar o layout do novo botão
                         Text indice = new Text(String.valueOf(l));
                         indice.setFill(Color.WHITE);
                         indice.setLayoutX(vet[l].getLayoutX() + 20); // Posição do índice abaixo do botão
                         indice.setLayoutY(vet[l].getLayoutY() + 60); // Deslocamento para baixo
+
                         pane.getChildren().add(indice);
                         pane.getChildren().add(vet[l]);
+
                     }
                 });
 
-
                 //iniciando merge
-                for (tam = runs; tam < TL; tam = 2 * tam)
-                    for (int esq = 0; esq < TL; esq += 2 * tam) {
+                for (tam = run; tam < TL; tam = 2 * tam) {
+                    System.out.println("runs: "+runs+" TL: "+TL+" tam: "+tam+" run: "+run);
+                    for (esq = 0; esq < TL; esq += 2 * tam) {
+
                         int meio = esq + tam - 1;
-                        int dir = min((esq + 2 * tam - 1), (TL - 1));
+                        int dir = Math.min((esq + 2 * tam - 1), (TL - 1));
+                        System.out.println("esq: "+esq+" meio: "+meio+" dir: "+dir);
                         //merge
                         if (meio < dir){
-                            int tam1 = meio - esq + 1, tam2 = dir - meio;
+                            int tam1 =  meio - esq + 1, tam2 = dir - meio;
                             int[] vet1 = new int[tam1];
                             int[] vet2 = new int[tam2];
-                            for (int pos = 0; pos < tam1; pos++)
+                            vetor1 = new Button[tam1];
+                            vetor2 = new Button[tam2];;
+
+
+                            Platform.runLater(() -> {
+                                Text tituloVet1 = new Text("vet1: ");
+                                tituloVet1.setFont(new Font(14));
+                                tituloVet1.setFill(Color.WHITE);
+                                tituloVet1.setLayoutX(vet[8].getLayoutX()+50);
+                                tituloVet1.setLayoutY(350);
+                                pane.getChildren().add(tituloVet1);
+                                for (int pos = 0; pos < tam1 ; pos++) {
+                                    vetor1[pos] = new Button(String.valueOf( vetT[esq + pos]));
+                                    vetor1[pos].setMinHeight(40);
+                                    vetor1[pos].setMinWidth(40);
+                                    vetor1[pos].setFont(new Font(14));
+                                    vetor1[pos].setLayoutX((vet[8].getLayoutX()+100)+pos *60);
+                                    vetor1[pos].setLayoutY(330);
+
+                                    pane.getChildren().add(vetor1[pos]);
+                                }
+
+                                Text tituloVet2 = new Text("vet2: ");
+                                tituloVet2.setFont(new Font(14));
+                                tituloVet2.setFill(Color.WHITE);
+                                tituloVet2.setLayoutX(vet[8].getLayoutX()+50);
+                                tituloVet2.setLayoutY(430);
+                                pane.getChildren().add(tituloVet2);
+                                for (int pos = 0; pos < tam2; pos++) {
+                                    vetor2[pos] = new Button(String.valueOf( vetT[meio + 1 + pos]));
+                                    vetor2[pos].setMinHeight(40);
+                                    vetor2[pos].setMinWidth(40);
+                                    vetor2[pos].setFont(new Font(14));
+                                    vetor2[pos].setLayoutX((vet[8].getLayoutX()+100)+pos *60);
+                                    vetor2[pos].setLayoutY(400);
+                                    pane.getChildren().add(vetor2[pos]);
+                                }
+                            });
+
+                            for (int pos = 0; pos <tam1 ; pos++) {
                                 vet1[pos] = vetT[esq + pos];
-
-                            for (int pos = 0; pos < tam2; pos++)
-                                vet2[pos] = vetT[meio + 1 + pos];
-
-                           int j = 0,k = esq;
-                            i = 0;
-                            while (i < tam1 && j < tam2) {
-                                if (vet1[i] <= vet2[j])
-                                    vetT[k++] = vet1[i++];
-                                else
-                                    vetT[k++] = vet2[j++];
                             }
-                            while (i < tam1)
-                                vetT[k++] = vet1[i++];
-                            while (j < tam2)
-                                vetT[k++] = vet2[j++];
-                        }
-                    }
-                printVet(vetT);
 
+                            for (int pos = 0; pos <tam2 ; pos++) {
+                                vet2[pos] = vetT[meio + 1 + pos];
+                            }
+
+                            printVet(vet1);
+                            printVet(vet2);
+                            iAux = 0;
+                            j = 0;
+                            k = esq;
+                            while (iAux < tam1 && j < tam2) {
+
+                                if (vet1[iAux] <= vet2[j]) {
+                                    //permutação na tela
+                                    for (int i = 0; i < 10; i++) {
+                                        Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
+                                        Platform.runLater(() -> vetor1[iAux].setLayoutY(vetor1[iAux].getLayoutY() - 5));
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    diffX = vet[k].getLayoutX() - vetor1[iAux].getLayoutX();
+                                    stepX = diffX / 16;
+                                    for (int i = 0; i < 16; i++) {
+                                        Platform.runLater(() -> vet[k].setLayoutX(vet[k].getLayoutX() - stepX));
+                                        Platform.runLater(() -> vetor1[iAux].setLayoutX(vetor1[iAux].getLayoutX() + stepX));
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    for (int i = 0; i < 10; i++) {
+                                        Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 6));
+                                        Platform.runLater(() -> vetor1[iAux].setLayoutY(vetor1[iAux].getLayoutY() - 6));
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    Button aux = vet[k];
+                                    vet[k] = vetor1[iAux];
+                                    vetor1[iAux]=aux;
+                                    vetT[k] = vet1[iAux];
+                                    k++;
+                                    iAux++;
+                                } else {
+                                    //permutação na tela
+                                    for (int i = 0; i < 10; i++) {
+                                        Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
+                                        Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 5));
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    diffX = vet[k].getLayoutX() - vetor2[j].getLayoutX();
+                                    stepX = diffX / 16;
+                                    for (int i = 0; i < 16; i++) {
+                                        Platform.runLater(() -> vet[k].setLayoutX(vet[k].getLayoutX() - stepX));
+                                        Platform.runLater(() -> vetor2[j].setLayoutX(vetor2[j].getLayoutX() + stepX));
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    for (int i = 0; i < 10; i++) {
+                                        Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 13));
+                                        Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 13));
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    Button aux = vet[k];
+                                    vet[k] = vetor2[j];
+                                    vetor2[j]=aux;
+                                    vetT[k] = vet2[j];
+                                    k++;
+                                    j++;
+                                }
+                            }
+                            while (iAux < tam1) {
+                                //permutação na tela
+                                for (int i = 0; i < 10; i++) {
+                                    Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
+                                    Platform.runLater(() -> vetor1[iAux].setLayoutY(vetor1[iAux].getLayoutY() - 5));
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                diffX = vet[k].getLayoutX() - vetor1[iAux].getLayoutX();
+                                stepX = diffX / 16;
+                                for (int i = 0; i < 16; i++) {
+                                    Platform.runLater(() -> vet[k].setLayoutX(vet[k].getLayoutX() - stepX));
+                                    Platform.runLater(() -> vetor1[iAux].setLayoutX(vetor1[iAux].getLayoutX() + stepX));
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                for (int i = 0; i < 10; i++) {
+                                    Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 6));
+                                    Platform.runLater(() -> vetor1[iAux].setLayoutY(vetor1[iAux].getLayoutY() - 6));
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                Button aux = vet[k];
+                                vet[k] = vetor1[iAux];
+                                vetor1[iAux]=aux;
+                                vetT[k] = vet1[iAux];
+                                k++;
+                                iAux++;
+                            }
+                            while (j < tam2) {
+                                //permutação na tela
+                                for (int i = 0; i < 10; i++) {
+                                    Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
+                                    Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 5));
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                diffX = vet[k].getLayoutX() - vetor2[j].getLayoutX();
+                                stepX = diffX / 16;
+                                for (int i = 0; i < 16; i++) {
+                                    Platform.runLater(() -> vet[k].setLayoutX(vet[k].getLayoutX() - stepX));
+                                    Platform.runLater(() -> vetor2[j].setLayoutX(vetor2[j].getLayoutX() + stepX));
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                for (int i = 0; i < 10; i++) {
+                                    Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 13));
+                                    Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 13));
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                Button aux = vet[k];
+                                vet[k] = vetor2[j];
+                                vetor2[j]=aux;
+                                vetT[k] = vet2[j];
+                                j++;
+                                k++;
+                            }
+
+                            for (int i = 0; i <vetor1.length; i++) {
+                                int finalI = i;
+                                Platform.runLater(() -> pane.getChildren().remove(vetor1[finalI]));
+                                try {
+                                    Thread.sleep(50);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            for (int i = 0; i <vetor2.length; i++) {
+                                int finalI = i;
+                                Platform.runLater(() -> pane.getChildren().remove(vetor2[finalI]));
+                                try {
+                                    Thread.sleep(50);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            System.out.println("\nvetor primeiro for ");
+                            printVet(vetT);
+
+                        }
+                        System.out.println("\nvetor segundo for ");
+                        printVet(vetT);
+                    }
+
+
+
+                }
+                printVet(vetT);
                 return null;
             }
         };
         Thread thread = new Thread(task);
         thread.start();
     }
-    private int min(int i, int j) {
-        return (i <= j) ? i : j;
+
+    private int tamMin(int runs) {
+        int tam=runs;
+        int i = 0;
+        while (tam >= runs) {
+            tam /= runs;
+            i++;
+        }
+        return tam + i;
     }
     public void printVet(int[] vetT){
         System.out.println("\nArray:");
@@ -481,16 +658,4 @@ public class algoritimo extends Application {
             System.out.print(num + " ");
         }
     }
-
-
-    public void printVetB(Button[] vetT){
-        System.out.println("\nArray:");
-        for (Button button : vetT) {
-            // Se você quiser imprimir o texto do botão, use getText()
-            System.out.print(button.getText() + " ");
-            // Ou se você quiser imprimir outra propriedade, use o método apropriado
-        }
-    }
-
-
 }
