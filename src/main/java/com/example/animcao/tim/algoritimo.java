@@ -105,12 +105,9 @@ public class algoritimo extends Application {
         vet = new Button[tamanhoVetor];
         int valorAleatorio = 14;
         for (int i = 0; i < tamanhoVetor; i++) {
-
-                    //random.nextInt(1000); // Gerando número aleatório entre 0 e 99
-
             vet[i] = new Button(String.valueOf(valorAleatorio));
             valorAleatorio--;
-            vet[i].setLayoutX(150 + i * 60); // Espaçamento entre os botões
+            vet[i].setLayoutX(150 + i * 60);
             vet[i].setLayoutY(100);
             vet[i].setMinHeight(40);
             vet[i].setMinWidth(40);
@@ -120,8 +117,8 @@ public class algoritimo extends Application {
             // Adicionando o índice abaixo do botão
             Text indice = new Text(String.valueOf(i));
             indice.setFill(Color.WHITE);
-            indice.setLayoutX(vet[i].getLayoutX() + 20); // Posição do índice abaixo do botão
-            indice.setLayoutY(vet[i].getLayoutY() + 60); // Deslocamento para baixo
+            indice.setLayoutX(vet[i].getLayoutX() + 20);
+            indice.setLayoutY(vet[i].getLayoutY() + 60);
             pane.getChildren().add(indice);
         }
     }
@@ -147,8 +144,6 @@ public class algoritimo extends Application {
         titulo.setFont(new Font(20));
         titulo.setFill(Color.GREEN);
         pane.getChildren().add(titulo);
-
-
 
         Seta = new Text("↑");
         Seta.setFill(Color.RED);
@@ -213,16 +208,29 @@ public class algoritimo extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
+    private int tamMin(int runs) {
+        int tam=runs;
+        int i = 0;
+        while (tam >= runs) {
+            tam /= runs;
+            i++;
+        }
+        return tam + i;
+    }
+    public void printVet(int[] vetT){
+        System.out.println("\nArray:");
+        for (int num : vetT) {
+            System.out.print(num + " ");
+        }
+    }
     public void move_botoes() {
 
         Task<Void> task = new Task<Void>(){
             int finalKt, finalIAux =0 ,iAux = 0,esq=0,pos=0,tam;
             int[] vet1, vet2;
             Button[] vetor1,vetor2;
-            Text tituloVet1,tituloVet2;
+            Text tituloVet1,tituloVet2,tituloCodigoI;
+            VBox codeContainerI,codeContainerM;
             @Override
             protected Void call() {
                 int[] vetT = new int[14];
@@ -271,14 +279,59 @@ public class algoritimo extends Application {
                     CodigoT[1].setFill(Color.WHITE);
                     CodigoT[2].setFill(Color.RED);
                 });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(()->{
+                    CodigoT[2].setFill(Color.WHITE);
+                    CodigoT[3].setFill(Color.RED);
+
+                });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Platform.runLater(()-> {
+                            codeContainerI = new VBox();
+                            codeContainerI.setStyle("-fx-background-color: #515151; -fx-border-color: #022c10; -fx-border-width: 2px; -fx-border-radius: 2px");
+                            codeContainerI.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                            DropShadow dropShadow = new DropShadow();
+                            dropShadow.setOffsetX(2);
+                            dropShadow.setOffsetY(2);
+                            codeContainerI.setEffect(dropShadow);
+
+                            for (int i = 0; i < CodigoI.length; i++) {
+                                CodigoI[i].setFill(Color.WHITE);
+                                CodigoI[i].setFont(new Font(20));
+                                codeContainerI.getChildren().add(CodigoI[i]);
+                            }
 
 
+                            CodigoI[0].setFill(Color.RED);
+                            pane.getChildren().add(codeContainerI);
+                            BorderPane root = new BorderPane();
+                            root.setStyle("-fx-background-color: #000000;");
+                            botao_inicio.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                            titulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                            tituloCodigoI = new Text("Insercao Direta");
+                            tituloCodigoI.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                            pane.getChildren().add(tituloCodigoI);
+                            AnchorPane.setTopAnchor(tituloCodigoI, 400.0);
+                            AnchorPane.setRightAnchor(tituloCodigoI, 170.0);
+                            AnchorPane.setRightAnchor(codeContainerI, 10.0);
+                            AnchorPane.setTopAnchor(codeContainerI, 440.0);
+                        });
                 //insercao direta
                 for ( i = 0; i < TL; i += run) {
-                    int esq= i , dir=Math.min((i+runs-1), (TL - 1)), aux,j;
 
+                    int esq= i , dir=Math.min((i+runs-1), (TL - 1)), aux,j;
                     //mostrar na tela o codigo da insercao direta e as variveis esq dir pos e aux
                     Platform.runLater(() -> {
+
                         esqT = new Text("esq: "+ esq);
                         esqT.setFont(new Font(14));
                         esqT.setFill(Color.WHITE);
@@ -292,15 +345,80 @@ public class algoritimo extends Application {
                         dirT.setLayoutX(100);
                         dirT.setLayoutY(75);
                         pane.getChildren().add(dirT);
-                        CodigoT[2].setFill(Color.WHITE);
-                        CodigoT[3].setFill(Color.RED);
-                    });
+                        CodigoT[3].setFill(Color.WHITE);
+                        CodigoT[4].setFill(Color.RED);
 
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    Platform.runLater(()->{
+                        CodigoI[0].setFill(Color.WHITE);
+                        CodigoI[1].setFill(Color.RED);
+
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Platform.runLater(()->{
+                        CodigoI[1].setFill(Color.WHITE);
+                        CodigoI[2].setFill(Color.RED);
+
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     for (j = esq + 1; j <= dir; j++) {
+
                         aux = vetT[j];
+                        Platform.runLater(()->{
+                            CodigoI[2].setFill(Color.WHITE);
+                            CodigoI[3].setFill(Color.RED);
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         pos = j;
+                        Platform.runLater(()->{
+                            CodigoI[3].setFill(Color.WHITE);
+                            CodigoI[4].setFill(Color.RED);
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Platform.runLater(()->{
+                            CodigoI[4].setFill(Color.WHITE);
+                            CodigoI[5].setFill(Color.RED);
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         while (pos > esq && vetT[pos - 1] > aux) {
 
+                            Platform.runLater(()->{
+                                CodigoI[5].setFill(Color.WHITE);
+                                CodigoI[6].setFill(Color.RED);
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             //subindo a segunda variavel
                             for (l = 0; l < 10; l++) {
                                 //subindo vetT[i]
@@ -337,13 +455,72 @@ public class algoritimo extends Application {
                                 }
                             }
                             vetT[pos] = vetT[pos -1];
+                            Platform.runLater(()->{
+                                CodigoI[6].setFill(Color.WHITE);
+                                CodigoI[7].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             pos--;
+                            Platform.runLater(()->{
+                                CodigoI[7].setFill(Color.WHITE);
+                                CodigoI[5].setFill(Color.RED);
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                        Platform.runLater(()->{
+                            CodigoI[5].setFill(Color.WHITE);
+                            CodigoI[9].setFill(Color.RED);
+
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                         vetT[pos] = aux;
+
+                        Platform.runLater(()->{
+                            CodigoI[9].setFill(Color.WHITE);
+                            CodigoI[2].setFill(Color.RED);
+
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                     Platform.runLater(() -> {pane.getChildren().remove(esqT);
                                              pane.getChildren().remove(dirT);
                     });
+
+                    //voltando no for
+                    Platform.runLater(()->{
+                        for (int i = 0; i < CodigoI.length ; i++) {
+                            CodigoI[i].setFill(Color.WHITE);
+                        }
+
+                        CodigoT[4].setFill(Color.WHITE);
+                        CodigoT[3].setFill(Color.RED);
+
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Platform.runLater(() -> {pane.getChildren().add(esqT);
                                          pane.getChildren().add(dirT);
@@ -386,16 +563,111 @@ public class algoritimo extends Application {
                     }
                 });
 
+                Platform.runLater(()->{
+                    pane.getChildren().remove(tituloCodigoI);
+                    pane.getChildren().remove(codeContainerI);
+                });
+                Platform.runLater(()->{
+                    CodigoT[3].setFill(Color.WHITE);
+                    CodigoT[5].setFill(Color.RED);
+
+                });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 //iniciando merge
                 for (tam = run; tam < TL; tam = 2 * tam) {
                     System.out.println("runs: "+runs+" TL: "+TL+" tam: "+tam+" run: "+run);
-                    for (esq = 0; esq < TL; esq += 2 * tam) {
+                    Platform.runLater(()->{
+                        CodigoT[5].setFill(Color.WHITE);
+                        CodigoT[6].setFill(Color.RED);
 
+                    });
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    for (esq = 0; esq < TL; esq += 2 * tam) {
+                        Platform.runLater(()->{
+                            CodigoT[6].setFill(Color.WHITE);
+                            CodigoT[7].setFill(Color.RED);
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         int meio = esq + tam - 1;
+                        Platform.runLater(()->{
+                            CodigoT[7].setFill(Color.WHITE);
+                            CodigoT[8].setFill(Color.RED);
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         int dir = Math.min((esq + 2 * tam - 1), (TL - 1));
                         System.out.println("esq: "+esq+" meio: "+meio+" dir: "+dir);
                         //merge
+
+                        Platform.runLater(()->{
+                            CodigoT[8].setFill(Color.WHITE);
+                            CodigoT[9].setFill(Color.RED);
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Platform.runLater(()->{
+                            CodigoT[9].setFill(Color.WHITE);
+                            CodigoT[10].setFill(Color.RED);
+
+                        });
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         if (meio < dir){
+                            Platform.runLater(()-> {
+                                codeContainerM = new VBox();
+                                codeContainerM.setStyle("-fx-background-color: #515151; -fx-border-color: #022c10; -fx-border-width: 2px; -fx-border-radius: 2px");
+                                codeContainerM.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                                DropShadow dropShadow = new DropShadow();
+                                dropShadow.setOffsetX(2);
+                                dropShadow.setOffsetY(2);
+                                codeContainerM.setEffect(dropShadow);
+
+                                for (int i = 0; i < CodigoM.length; i++) {
+                                    CodigoM[i].setFill(Color.WHITE);
+                                    CodigoM[i].setFont(new Font(15));
+                                    codeContainerM.getChildren().add(CodigoM[i]);
+                                }
+
+
+                                CodigoM[0].setFill(Color.RED);
+                                pane.getChildren().add(codeContainerM);
+                                BorderPane root = new BorderPane();
+                                root.setStyle("-fx-background-color: #000000;");
+                                botao_inicio.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                                titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                                tituloCodigoI = new Text("Merge");
+                                tituloCodigoI.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                                pane.getChildren().add(tituloCodigoI);
+                                AnchorPane.setTopAnchor(tituloCodigoI, 400.0);
+                                AnchorPane.setRightAnchor(tituloCodigoI, 170.0);
+                                AnchorPane.setRightAnchor(codeContainerM, 10.0);
+                                AnchorPane.setTopAnchor(codeContainerM, 440.0);
+                            });
                             int tam1 =  meio - esq + 1, tam2 = dir - meio;
                             int[] vet1 = new int[tam1];
                             int[] vet2 = new int[tam2];
@@ -404,10 +676,10 @@ public class algoritimo extends Application {
 
 
                             Platform.runLater(() -> {
-                                Text tituloVet1 = new Text("vet1: ");
+                                tituloVet1 = new Text("vet1: ");
                                 tituloVet1.setFont(new Font(14));
                                 tituloVet1.setFill(Color.WHITE);
-                                tituloVet1.setLayoutX(vet[8].getLayoutX()+50);
+                                tituloVet1.setLayoutX(450);
                                 tituloVet1.setLayoutY(350);
                                 pane.getChildren().add(tituloVet1);
                                 for (int pos = 0; pos < tam1 ; pos++) {
@@ -415,16 +687,16 @@ public class algoritimo extends Application {
                                     vetor1[pos].setMinHeight(40);
                                     vetor1[pos].setMinWidth(40);
                                     vetor1[pos].setFont(new Font(14));
-                                    vetor1[pos].setLayoutX((vet[8].getLayoutX()+100)+pos *60);
+                                    vetor1[pos].setLayoutX(480+pos *60);
                                     vetor1[pos].setLayoutY(330);
 
                                     pane.getChildren().add(vetor1[pos]);
                                 }
 
-                                Text tituloVet2 = new Text("vet2: ");
+                                tituloVet2 = new Text("vet2: ");
                                 tituloVet2.setFont(new Font(14));
                                 tituloVet2.setFill(Color.WHITE);
-                                tituloVet2.setLayoutX(vet[8].getLayoutX()+50);
+                                tituloVet2.setLayoutX(450);
                                 tituloVet2.setLayoutY(430);
                                 pane.getChildren().add(tituloVet2);
                                 for (int pos = 0; pos < tam2; pos++) {
@@ -432,7 +704,7 @@ public class algoritimo extends Application {
                                     vetor2[pos].setMinHeight(40);
                                     vetor2[pos].setMinWidth(40);
                                     vetor2[pos].setFont(new Font(14));
-                                    vetor2[pos].setLayoutX((vet[8].getLayoutX()+100)+pos *60);
+                                    vetor2[pos].setLayoutX(480+pos *60);
                                     vetor2[pos].setLayoutY(400);
                                     pane.getChildren().add(vetor2[pos]);
                                 }
@@ -494,7 +766,7 @@ public class algoritimo extends Application {
                                     //permutação na tela
                                     for (int i = 0; i < 10; i++) {
                                         Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
-                                        Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 5));
+                                        Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 13));
                                         try {
                                             Thread.sleep(50);
                                         } catch (InterruptedException e) {
@@ -514,7 +786,7 @@ public class algoritimo extends Application {
                                     }
                                     for (int i = 0; i < 10; i++) {
                                         Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 13));
-                                        Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 13));
+                                        Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 5));
                                         try {
                                             Thread.sleep(50);
                                         } catch (InterruptedException e) {
@@ -571,7 +843,7 @@ public class algoritimo extends Application {
                                 //permutação na tela
                                 for (int i = 0; i < 10; i++) {
                                     Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
-                                    Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 5));
+                                    Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 13));
                                     try {
                                         Thread.sleep(50);
                                     } catch (InterruptedException e) {
@@ -591,7 +863,7 @@ public class algoritimo extends Application {
                                 }
                                 for (int i = 0; i < 10; i++) {
                                     Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 13));
-                                    Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 13));
+                                    Platform.runLater(() -> vetor2[j].setLayoutY(vetor2[j].getLayoutY() - 5));
                                     try {
                                         Thread.sleep(50);
                                     } catch (InterruptedException e) {
@@ -624,6 +896,10 @@ public class algoritimo extends Application {
                                     e.printStackTrace();
                                 }
                             }
+                            Platform.runLater(() ->{
+                                pane.getChildren().remove(tituloVet1);
+                                pane.getChildren().remove(tituloVet2);
+                            });
                             System.out.println("\nvetor primeiro for ");
                             printVet(vetT);
 
@@ -633,7 +909,6 @@ public class algoritimo extends Application {
                     }
 
 
-
                 }
                 printVet(vetT);
                 return null;
@@ -641,21 +916,5 @@ public class algoritimo extends Application {
         };
         Thread thread = new Thread(task);
         thread.start();
-    }
-
-    private int tamMin(int runs) {
-        int tam=runs;
-        int i = 0;
-        while (tam >= runs) {
-            tam /= runs;
-            i++;
-        }
-        return tam + i;
-    }
-    public void printVet(int[] vetT){
-        System.out.println("\nArray:");
-        for (int num : vetT) {
-            System.out.print(num + " ");
-        }
     }
 }
