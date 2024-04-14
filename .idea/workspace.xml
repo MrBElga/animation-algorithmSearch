@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4c9dfade-be69-4277-b3c8-9b5f83c0737a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/animcao/counting/countingSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/animcao/counting/countingSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/algoritimo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/timSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/animcao/tim/timSort.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,8 +128,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.algoritimo" />
-        <item itemvalue="Application.timSort" />
         <item itemvalue="Application.countingSort" />
+        <item itemvalue="Application.timSort" />
         <item itemvalue="Application.CountingSortAnimation" />
       </list>
     </recent_temporary>
@@ -167,7 +167,7 @@
       <workItem from="1713063165201" duration="15237000" />
       <workItem from="1713105623715" duration="6436000" />
       <workItem from="1713114028444" duration="4431000" />
-      <workItem from="1713118537659" duration="3799000" />
+      <workItem from="1713118537659" duration="8548000" />
     </task>
     <servers />
   </component>
@@ -200,7 +200,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/animcao/tim/algoritimo.java</url>
-          <line>357</line>
+          <line>399</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

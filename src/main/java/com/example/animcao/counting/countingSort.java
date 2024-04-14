@@ -7,9 +7,11 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
@@ -225,10 +227,75 @@ public class countingSort extends Application {
 
         Task<Void> task = new Task<Void>(){
             int i=0;
+            Text Titulo,varT;
+            Rectangle caixaExplicacao,caixaVar ;
             @Override
             protected Void call() {
                 //valor de K
+                Platform.runLater(()->{
+                    pane.getChildren().remove(caixaVar);
+                    pane.getChildren().remove(varT);
+                    varT = new Text("VARIAVEIS USADAS");
+                    pane.getChildren().add(varT);
+                    varT.setLayoutY(550);
+                    varT.setLayoutX(50);
+                    varT.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                    caixaVar = new Rectangle(300, 200); // largura e altura da caixa
+                    caixaVar.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaVar.setStroke(Color.GREEN); // cor da borda da caixa+
 
+
+                    caixaVar.setLayoutX(50); // posição x da caixa
+                    caixaVar.setLayoutY(560); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label varLabel = new Label(
+                            "\tO QUE É CADA VARIAVEL\n"+
+                                    "K = maior elemento do vetor\n"+
+                                    "Vet = Vetor original\n"+
+                                    "VetC = Vetor de Contagem\n"+
+                                    "VetB = Vetor Auxiliar\n"+
+                                    "Math.max() = Função que verifica\nse o valor de uma variavel X\né maior que uma Y\n"
+
+
+                    );
+                    varLabel.setLayoutX(60); // posição x do rótulo dentro da caixa
+                    varLabel.setLayoutY(580); // posição y do rótulo dentro da caixa
+                    varLabel.setFont(new Font(14));
+                    varLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaVar, varLabel);
+                });
+                Platform.runLater(()->{
+                    pane.getChildren().remove(caixaExplicacao);
+                    pane.getChildren().remove(Titulo);
+                    Titulo = new Text("EXPLICAÇÃO");
+                    pane.getChildren().add(Titulo);
+                    Titulo.setLayoutY(550);
+                    Titulo.setLayoutX(450);
+                    Titulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                    caixaExplicacao = new Rectangle(600, 200); // largura e altura da caixa
+                    caixaExplicacao.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaExplicacao.setStroke(Color.GREEN); // cor da borda da caixa+
+
+
+                    caixaExplicacao.setLayoutX(450); // posição x da caixa
+                    caixaExplicacao.setLayoutY(560); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label explicacaoLabel = new Label(
+                            "\t\t\t\t\tBUSCANDO O MAIOR ELEMENTO\n"+
+                                    "É necessário encontrar o maior elemento no conjunto de dados\n"+
+                                    "para determinar o tamanho adequado do vetor de contagem."+"\n\nO tamnanho do vetor é dado por K+1(maior elemento+1)."
+
+                    );
+                    explicacaoLabel.setLayoutX(460); // posição x do rótulo dentro da caixa
+                    explicacaoLabel.setLayoutY(580); // posição y do rótulo dentro da caixa
+                    explicacaoLabel.setFont(new Font(14));
+                    explicacaoLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaExplicacao, explicacaoLabel);
+                });
                 int maior = 0;
                 Platform.runLater(() -> {
                     Codigo[0].setFill(Color.WHITE);
@@ -322,6 +389,30 @@ public class countingSort extends Application {
                 }
 
 
+                Platform.runLater(()->{
+                    pane.getChildren().remove(caixaExplicacao);
+                    caixaExplicacao = new Rectangle(600, 200); // largura e altura da caixa
+                    caixaExplicacao.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaExplicacao.setStroke(Color.GREEN); // cor da borda da caixa+
+
+
+                    caixaExplicacao.setLayoutX(450); // posição x da caixa
+                    caixaExplicacao.setLayoutY(560); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label explicacaoLabel = new Label(
+                            "\t\t\t\t\tINSERINDO NO VETOR DE CONTAGEM\n"+
+                                    "O vetor de contagem armazena a frequência de ocorrência de cada\nelemento único do conjunto de dados.\n"+
+                                    "Cada índice representa um valor distinto, e o valor armazenado\nindica quantas vezes esse elemento aparece."
+
+                    );
+                    explicacaoLabel.setLayoutX(460); // posição x do rótulo dentro da caixa
+                    explicacaoLabel.setLayoutY(580); // posição y do rótulo dentro da caixa
+                    explicacaoLabel.setFont(new Font(14));
+                    explicacaoLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaExplicacao, explicacaoLabel);
+                });
                 for (i = 0; i < vet.length; i++)
                 {
                     int valor = Integer.parseInt(vet[i].getText());
@@ -407,6 +498,36 @@ public class countingSort extends Application {
                 });
 
                 int []B = new int[vet.length];
+                Platform.runLater(()->{
+                    pane.getChildren().remove(caixaExplicacao);
+                    caixaExplicacao = new Rectangle(600, 200); // largura e altura da caixa
+                    caixaExplicacao.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaExplicacao.setStroke(Color.GREEN); // cor da borda da caixa+
+
+
+                    caixaExplicacao.setLayoutX(450); // posição x da caixa
+                    caixaExplicacao.setLayoutY(560); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label explicacaoLabel = new Label(
+                            "\t\t\t\t\tINSERINDO NO VETOR AUXILIAR\n"+
+                            "Para determinar o índice correto no vetor de contagem, é necessário utilizar um vetor auxiliar.\n" +
+                                    "Começamos acessando o vetor original na posição i (que inicia no final do vetor).\n" +
+                                    "Em seguida, subtraímos 1 para encontrar o índice correto no vetor C.\n" +
+                                    "O valor i do vetor original é então atribuído ao vetor auxiliar.\n" +
+                                    "Após essa atribuição, decrementamos 1 na posição vet[i] do vetor de contagem, indicando\n" +
+                                    "que falta apenas X variáveis daquele tipo (dado pelo índice no vetor de contagem)." +
+                                    "\n\nPROCESSO FINAL: o ultimo processo é apenas passar os valores do vetor auxiliar para o original"
+
+
+                    );
+                    explicacaoLabel.setLayoutX(460); // posição x do rótulo dentro da caixa
+                    explicacaoLabel.setLayoutY(580); // posição y do rótulo dentro da caixa
+                    explicacaoLabel.setFont(new Font(14));
+                    explicacaoLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaExplicacao, explicacaoLabel);
+                });
 
                 vetB = new Button[vet.length];
                 for (i = 0; i < vet.length; i++) {
