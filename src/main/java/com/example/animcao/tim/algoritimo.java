@@ -231,11 +231,53 @@ public class algoritimo extends Application {
             int finalKt, finalIAux =0 ,iAux = 0,esq=0,pos=0,tam;
             int[] vet1, vet2;
             Button[] vetor1,vetor2;
-            Text tituloVet1,tituloVet2,tituloCodigoI,Titulo;
+            Text tituloVet1,tituloVet2,tituloCodigoI,Titulo,varT;
             VBox codeContainerI,codeContainerM;
-            Rectangle caixaExplicacao;
+            Rectangle caixaExplicacao,caixaVar;
             @Override
             protected Void call() {
+
+                Platform.runLater(()-> {
+                    pane.getChildren().remove(caixaVar);
+                    pane.getChildren().remove(varT);
+                    varT = new Text("VARIAVEIS USADAS");
+                    pane.getChildren().add(varT);
+                    varT.setLayoutY(310);
+                    varT.setLayoutX(50);
+                    varT.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                    caixaVar = new Rectangle(320, 520); // largura e altura da caixa
+                    caixaVar.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaVar.setStroke(Color.GREEN); // cor da borda da caixa+
+
+
+                    caixaVar.setLayoutX(50); // posição x da caixa
+                    caixaVar.setLayoutY(330); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label varLabel = new Label(
+                            "\tO QUE É CADA VARIAVEL\n" +
+                                    "runs = determina o número de \nruns(sequências ordenadas) a serem\nutilizadas no algoritmo\n" +
+                                    "run = representa o tamanho mínimo de uma run\n" +
+                                    "TL = tamanho do vetor\n" +
+                                    "meio =undice do elemento do meio\nda parte do vetor\n\n" +
+                                    "esq = indice do elemento mais à\nesquerda da parte do vetor\n\n" +
+                                    "dir = indice do elemento mais à\ndireita da parte do vetor\n\n" +
+                                    "vet1 = representa a metade 1\n" +
+                                    "vet2 = representa a metade 2\n" +
+                                    "tam1 = tamanho do vetor1\n" +
+                                    "tam2 = tamanho do vetor2\n" +
+                                    "tamMin() = calcula o tamanho\nmínimo de uma run\n\n" +
+                                    "min() = Função que verifica\nse o valor de uma variavel X\né menor que uma Y\n\n"
+
+
+                    );
+                    varLabel.setLayoutX(60); // posição x do rótulo dentro da caixa
+                    varLabel.setLayoutY(340); // posição y do rótulo dentro da caixa
+                    varLabel.setFont(new Font(14));
+                    varLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaVar, varLabel);
+                });
                 int[] vetT = new int[14];
                 Platform.runLater(() -> {
                     gerarVetor(vet);
