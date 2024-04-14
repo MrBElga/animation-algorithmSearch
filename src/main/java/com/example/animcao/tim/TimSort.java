@@ -18,11 +18,11 @@ import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
 
-public class algoritimo extends Application {
+public class TimSort extends Application {
 
     public double diffX,stepX;
     public int k=0, i=0,j=0,l=0;
-    private Text texto,Seta,SetaA,indice,titulo,end,SetaAux;
+    private Text texto,Seta,SetaA,indice,indiceA,indiceAux,titulo,end,SetaAux;
     private Text runsT,esqT,dirT;
     AnchorPane pane;
     Button botao_inicio;
@@ -166,6 +166,17 @@ public class algoritimo extends Application {
         indice.setFill(Color.RED);
         indice.setFont(new Font(14));
         pane.getChildren().add(indice);
+
+        indiceA = new Text("indice");
+        indiceA.setFill(Color.CYAN);
+        indiceA.setFont(new Font(14));
+        pane.getChildren().add(indiceA);
+
+        indiceAux = new Text("indiceAux");
+        indiceAux.setFill(Color.GREEN);
+        indiceAux.setFont(new Font(14));
+        pane.getChildren().add(indiceAux);
+
         end = new Text("FINALIZADO");
         end.setFont(new Font(25));
 
@@ -408,6 +419,8 @@ public class algoritimo extends Application {
                     //mostrar na tela o codigo da insercao direta e as variveis esq dir pos e aux
                     Platform.runLater(() -> {
 
+
+
                         esqT = new Text("esq: "+ esq);
                         esqT.setFont(new Font(14));
                         esqT.setFill(Color.WHITE);
@@ -487,6 +500,16 @@ public class algoritimo extends Application {
                         while (pos > esq && vetT[pos - 1] > aux) {
 
                             Platform.runLater(()->{
+                                Seta.setLayoutX(vet[pos].getLayoutX());
+                                Seta.setLayoutY(vet[pos].getLayoutY() + 70);
+                                SetaA.setLayoutX(vet[pos-1].getLayoutX());
+                                SetaA.setLayoutY(vet[pos-1].getLayoutY() + 70);
+                                indice.setText("pos");
+                                indice.setLayoutX(Seta.getLayoutX());
+                                indice.setLayoutY(Seta.getLayoutY() + 10);
+                                indiceA.setText("pos-1");
+                                indiceA.setLayoutX(SetaA.getLayoutX());
+                                indiceA.setLayoutY(SetaA.getLayoutY() + 10);
                                 CodigoI[5].setFill(Color.WHITE);
                                 CodigoI[6].setFill(Color.RED);
                             });
@@ -948,10 +971,25 @@ public class algoritimo extends Application {
                                 e.printStackTrace();
                             }
                             while (iAux < tam1 && j < tam2) {
+
                                 Platform.runLater(()->{
                                     CodigoM[9].setFill(Color.WHITE);
                                     CodigoM[10].setFill(Color.RED);
-
+                                    Seta.setLayoutX(vetor1[iAux].getLayoutX());
+                                    Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    SetaA.setLayoutX(vet[k].getLayoutX());
+                                    SetaA.setLayoutY(vet[k].getLayoutY() + 70);
+                                    SetaAux.setLayoutX(vetor2[j].getLayoutX());
+                                    SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    indiceAux.setText(" j");
+                                    indiceAux.setLayoutX(SetaAux.getLayoutX());
+                                    indiceAux.setLayoutY(SetaAux.getLayoutY() + 10);
+                                    indice.setText(" i");
+                                    indice.setLayoutX(Seta.getLayoutX());
+                                    indice.setLayoutY(Seta.getLayoutY() + 10);
+                                    indiceA.setText(" k");
+                                    indiceA.setLayoutX(SetaA.getLayoutX());
+                                    indiceA.setLayoutY(SetaA.getLayoutY() + 10);
                                 });
                                 try {
                                     Thread.sleep(200);
@@ -962,6 +1000,7 @@ public class algoritimo extends Application {
                                     Platform.runLater(()->{
                                         CodigoM[10].setFill(Color.WHITE);
                                         CodigoM[11].setFill(Color.RED);
+
 
                                     });
                                     try {
@@ -1087,7 +1126,21 @@ public class algoritimo extends Application {
                                 Platform.runLater(()->{
                                     CodigoM[15].setFill(Color.WHITE);
                                     CodigoM[16].setFill(Color.RED);
-
+                                    Seta.setLayoutX(vetor1[iAux].getLayoutX());
+                                    Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    SetaA.setLayoutX(vet[k].getLayoutX());
+                                    SetaA.setLayoutY(vet[k].getLayoutY() + 70);
+                                    SetaAux.setLayoutX(vetor2[j].getLayoutX());
+                                    SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    indiceAux.setText(" j");
+                                    indiceAux.setLayoutX(SetaAux.getLayoutX());
+                                    indiceAux.setLayoutY(SetaAux.getLayoutY() + 10);
+                                    indice.setText(" i");
+                                    indice.setLayoutX(Seta.getLayoutX());
+                                    indice.setLayoutY(Seta.getLayoutY() + 10);
+                                    indiceA.setText(" k");
+                                    indiceA.setLayoutX(SetaA.getLayoutX());
+                                    indiceA.setLayoutY(SetaA.getLayoutY() + 10);
                                 });
                                 try {
                                     Thread.sleep(200);
@@ -1155,6 +1208,21 @@ public class algoritimo extends Application {
                                 Platform.runLater(()->{
                                     CodigoM[17].setFill(Color.WHITE);
                                     CodigoM[18].setFill(Color.RED);
+                                    Seta.setLayoutX(vetor1[iAux].getLayoutX());
+                                    Seta.setLayoutY(vetor1[iAux].getLayoutY() + 70);
+                                    SetaA.setLayoutX(vet[k].getLayoutX());
+                                    SetaA.setLayoutY(vet[k].getLayoutY() + 70);
+                                    SetaAux.setLayoutX(vetor2[j].getLayoutX());
+                                    SetaAux.setLayoutY(vetor2[j].getLayoutY() + 70);
+                                    indiceAux.setText(" j");
+                                    indiceAux.setLayoutX(SetaAux.getLayoutX());
+                                    indiceAux.setLayoutY(SetaAux.getLayoutY() + 10);
+                                    indice.setText(" i");
+                                    indice.setLayoutX(Seta.getLayoutX());
+                                    indice.setLayoutY(Seta.getLayoutY() + 10);
+                                    indiceA.setText(" k");
+                                    indiceA.setLayoutX(SetaA.getLayoutX());
+                                    indiceA.setLayoutY(SetaA.getLayoutY() + 10);
 
                                 });
                                 try {
@@ -1247,6 +1315,11 @@ public class algoritimo extends Application {
 
 
                 }
+                Platform.runLater(() ->{
+
+                    pane.getChildren().removeAll(Seta,SetaA,SetaAux,indice,indiceA,indiceAux,tituloVet1,tituloVet2);
+                    texto.setText("Vet ordenado apõs o Merge: ");
+                });
                 printVet(vetT);
                 return null;
             }
