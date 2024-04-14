@@ -8,9 +8,11 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
@@ -167,7 +169,7 @@ public class algoritimo extends Application {
         end = new Text("FINALIZADO");
         end.setFont(new Font(25));
 
-        
+
         CodigoT = new Text[13];
         alocarCodigoTim(CodigoT);
         CodigoI = new Text[12];
@@ -229,8 +231,9 @@ public class algoritimo extends Application {
             int finalKt, finalIAux =0 ,iAux = 0,esq=0,pos=0,tam;
             int[] vet1, vet2;
             Button[] vetor1,vetor2;
-            Text tituloVet1,tituloVet2,tituloCodigoI;
+            Text tituloVet1,tituloVet2,tituloCodigoI,Titulo;
             VBox codeContainerI,codeContainerM;
+            Rectangle caixaExplicacao;
             @Override
             protected Void call() {
                 int[] vetT = new int[14];
@@ -294,7 +297,36 @@ public class algoritimo extends Application {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Platform.runLater(()->{
+                    Titulo = new Text("EXPLICAÇÃO");
+                    pane.getChildren().add(Titulo);
+                    Titulo.setLayoutY(490);
+                    Titulo.setLayoutX(450);
+                    Titulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                    caixaExplicacao = new Rectangle(600, 200); // largura e altura da caixa
+                    caixaExplicacao.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaExplicacao.setStroke(Color.GREEN); // cor da borda da caixa+
 
+
+                    caixaExplicacao.setLayoutX(450); // posição x da caixa
+                    caixaExplicacao.setLayoutY(500); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label explicacaoLabel = new Label(
+                            "\t\t\t\tFAZENDO A INSERÇÃO DIRETA\n"+
+                                    "A inserção direta é um algoritmo simples de ordenação." +
+                                    "Ele divide o array em partes ordenada \ne não ordenada.\n" +
+                                    "Em cada passo, um elemento da parte não ordenada é " +
+                                    "selecionado e inserido na parte \nordenada, mantendo a ordem " +
+                                    "crescente (ou decrescente) dos elementos\n\n\n"+"ATENÇÃO: os elementos estão sendo trocados diretamente pois estão sendo\nanalisados de 2 em 2!!"
+                    );
+                    explicacaoLabel.setLayoutX(460); // posição x do rótulo dentro da caixa
+                    explicacaoLabel.setLayoutY(520); // posição y do rótulo dentro da caixa
+                    explicacaoLabel.setFont(new Font(14));
+                    explicacaoLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaExplicacao, explicacaoLabel);
+                });
                 Platform.runLater(()-> {
                             codeContainerI = new VBox();
                             codeContainerI.setStyle("-fx-background-color: #515151; -fx-border-color: #022c10; -fx-border-width: 2px; -fx-border-radius: 2px");
@@ -325,6 +357,8 @@ public class algoritimo extends Application {
                             AnchorPane.setRightAnchor(codeContainerI, 10.0);
                             AnchorPane.setTopAnchor(codeContainerI, 440.0);
                         });
+
+
                 //insercao direta
                 for ( i = 0; i < TL; i += run) {
 
@@ -423,7 +457,7 @@ public class algoritimo extends Application {
                             for (l = 0; l < 10; l++) {
                                 //subindo vetT[i]
                                 Platform.runLater(() ->{ vet[pos].setLayoutY(vet[pos].getLayoutY() - 5);
-                                                         vet[pos-1].setLayoutY(vet[pos-1].getLayoutY() + 5);
+                                    vet[pos-1].setLayoutY(vet[pos-1].getLayoutY() + 5);
                                 });
                                 try {
                                     Thread.sleep(50);
@@ -435,7 +469,7 @@ public class algoritimo extends Application {
                             stepX = diffX / 16;
                             for (int l = 0; l < 16; l++) {
                                 Platform.runLater(() -> {vet[pos].setLayoutX(vet[pos].getLayoutX() - stepX);
-                                                         vet[pos-1].setLayoutX(vet[pos-1].getLayoutX() + stepX);
+                                    vet[pos-1].setLayoutX(vet[pos-1].getLayoutX() + stepX);
                                 });
                                 try {
                                     Thread.sleep(50);
@@ -446,7 +480,7 @@ public class algoritimo extends Application {
                             for (int l = 0; l < 10; l++) {
                                 //subindo vetT[i]
                                 Platform.runLater(() -> {vet[pos].setLayoutY(vet[pos].getLayoutY() + 5);
-                                                        vet[pos-1].setLayoutY(vet[pos-1].getLayoutY() - 5);
+                                    vet[pos-1].setLayoutY(vet[pos-1].getLayoutY() - 5);
                                 });
                                 try {
                                     Thread.sleep(50);
@@ -503,7 +537,7 @@ public class algoritimo extends Application {
                         }
                     }
                     Platform.runLater(() -> {pane.getChildren().remove(esqT);
-                                             pane.getChildren().remove(dirT);
+                        pane.getChildren().remove(dirT);
                     });
 
                     //voltando no for
@@ -523,7 +557,7 @@ public class algoritimo extends Application {
                     }
                 }
                 Platform.runLater(() -> {pane.getChildren().add(esqT);
-                                         pane.getChildren().add(dirT);
+                    pane.getChildren().add(dirT);
                 });
 
                 Button[] vetNovo = new Button[vet.length]; // Criar um novo array de botões
@@ -578,6 +612,38 @@ public class algoritimo extends Application {
                     e.printStackTrace();
                 }
 
+                Platform.runLater(()->{
+                    pane.getChildren().remove(caixaExplicacao);
+                    pane.getChildren().remove(Titulo);
+                    Titulo = new Text("EXPLICAÇÃO");
+                    pane.getChildren().add(Titulo);
+                    Titulo.setLayoutY(490);
+                    Titulo.setLayoutX(450);
+                    Titulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #4CAF50;");
+                    caixaExplicacao = new Rectangle(600, 200); // largura e altura da caixa
+                    caixaExplicacao.setFill(Color.BLACK); // cor de fundo da caixa
+                    caixaExplicacao.setStroke(Color.GREEN); // cor da borda da caixa+
+
+
+                    caixaExplicacao.setLayoutX(450); // posição x da caixa
+                    caixaExplicacao.setLayoutY(500); // posição y da caixa
+
+                    // Adicionar um rótulo com o texto da explicação
+                    Label explicacaoLabel = new Label(
+                            "\t\t\t\t\tFAZENDO O MERGE\n"+
+                                    "O Merge Sort é um algoritmo de ordenação eficiente que utiliza " +
+                                    "a técnica de divisão\nEle divide o array em duas metades, " +
+                                    "ordena cada metade separadamente e depois mescla\nas duas metades " +
+                                    "já ordenadas para obter o array final ordenado.\n\n\n"+"ATENÇÃO: apenas o vetor (vet) recebe o elemento!!"
+
+                    );
+                    explicacaoLabel.setLayoutX(460); // posição x do rótulo dentro da caixa
+                    explicacaoLabel.setLayoutY(520); // posição y do rótulo dentro da caixa
+                    explicacaoLabel.setFont(new Font(14));
+                    explicacaoLabel.setTextFill(Color.YELLOW);
+                    // Adicionar o retângulo e o rótulo ao painel
+                    pane.getChildren().addAll(caixaExplicacao, explicacaoLabel);
+                });
                 //iniciando merge
                 for (tam = run; tam < TL; tam = 2 * tam) {
                     System.out.println("runs: "+runs+" TL: "+TL+" tam: "+tam+" run: "+run);
@@ -669,47 +735,141 @@ public class algoritimo extends Application {
                                 AnchorPane.setTopAnchor(codeContainerM, 440.0);
                             });
                             int tam1 =  meio - esq + 1, tam2 = dir - meio;
+                            Platform.runLater(()->{
+                                CodigoM[0].setFill(Color.WHITE);
+                                CodigoM[1].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             int[] vet1 = new int[tam1];
+                            Platform.runLater(()->{
+                                CodigoM[1].setFill(Color.WHITE);
+                                CodigoM[2].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             int[] vet2 = new int[tam2];
+                            Platform.runLater(()->{
+                                CodigoM[2].setFill(Color.WHITE);
+                                CodigoM[3].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             vetor1 = new Button[tam1];
                             vetor2 = new Button[tam2];;
 
 
-                            Platform.runLater(() -> {
-                                tituloVet1 = new Text("vet1: ");
-                                tituloVet1.setFont(new Font(14));
-                                tituloVet1.setFill(Color.WHITE);
-                                tituloVet1.setLayoutX(450);
-                                tituloVet1.setLayoutY(350);
-                                pane.getChildren().add(tituloVet1);
-                                for (int pos = 0; pos < tam1 ; pos++) {
-                                    vetor1[pos] = new Button(String.valueOf( vetT[esq + pos]));
-                                    vetor1[pos].setMinHeight(40);
-                                    vetor1[pos].setMinWidth(40);
-                                    vetor1[pos].setFont(new Font(14));
-                                    vetor1[pos].setLayoutX(480+pos *60);
-                                    vetor1[pos].setLayoutY(330);
+                            Platform.runLater(()->{
+                                CodigoM[3].setFill(Color.WHITE);
+                                CodigoM[4].setFill(Color.RED);
 
-                                    pane.getChildren().add(vetor1[pos]);
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            for (pos = 0; pos < tam1 ; pos++) {
+                                    Platform.runLater(()->{
+                                        CodigoM[4].setFill(Color.WHITE);
+                                        CodigoM[5].setFill(Color.RED);
+
+                                    });
+                                    try {
+                                        Thread.sleep(200);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Platform.runLater(() -> {
+                                        tituloVet1 = new Text("vet1: ");
+                                        tituloVet1.setFont(new Font(14));
+                                        tituloVet1.setFill(Color.WHITE);
+                                        tituloVet1.setLayoutX(450);
+                                        tituloVet1.setLayoutY(350);
+                                        pane.getChildren().add(tituloVet1);
+
+                                            vetor1[pos] = new Button(String.valueOf( vetT[esq + pos]));
+                                            vetor1[pos].setMinHeight(40);
+                                            vetor1[pos].setMinWidth(40);
+                                            vetor1[pos].setFont(new Font(14));
+                                            vetor1[pos].setLayoutX(480+pos *60);
+                                            vetor1[pos].setLayoutY(330);
+                                            pane.getChildren().add(vetor1[pos]);
+                                    });
+                                Platform.runLater(()->{
+                                    CodigoM[5].setFill(Color.WHITE);
+                                    CodigoM[4].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
                                 }
 
-                                tituloVet2 = new Text("vet2: ");
-                                tituloVet2.setFont(new Font(14));
-                                tituloVet2.setFill(Color.WHITE);
-                                tituloVet2.setLayoutX(450);
-                                tituloVet2.setLayoutY(430);
-                                pane.getChildren().add(tituloVet2);
-                                for (int pos = 0; pos < tam2; pos++) {
-                                    vetor2[pos] = new Button(String.valueOf( vetT[meio + 1 + pos]));
+                            }
+                            Platform.runLater(()->{
+                                CodigoM[4].setFill(Color.WHITE);
+                                CodigoM[5].setFill(Color.WHITE);
+                                CodigoM[6].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            for (pos = 0; pos < tam2 ; pos++) {
+                                Platform.runLater(()->{
+                                    CodigoM[6].setFill(Color.WHITE);
+                                    CodigoM[7].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Platform.runLater(() -> {
+                                    tituloVet2 = new Text("vet2: ");
+                                    tituloVet2.setFont(new Font(14));
+                                    tituloVet2.setFill(Color.WHITE);
+                                    tituloVet2.setLayoutX(450);
+                                    tituloVet2.setLayoutY(430);
+                                    pane.getChildren().add(tituloVet2);
+
+                                    vetor2[pos] = new Button(String.valueOf(vetT[meio + 1 + pos]));
                                     vetor2[pos].setMinHeight(40);
                                     vetor2[pos].setMinWidth(40);
                                     vetor2[pos].setFont(new Font(14));
-                                    vetor2[pos].setLayoutX(480+pos *60);
+                                    vetor2[pos].setLayoutX(480 + pos * 60);
                                     vetor2[pos].setLayoutY(400);
                                     pane.getChildren().add(vetor2[pos]);
-                                }
-                            });
 
+                                });
+                                Platform.runLater(()->{
+                                    CodigoM[7].setFill(Color.WHITE);
+                                    CodigoM[6].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                             for (int pos = 0; pos <tam1 ; pos++) {
                                 vet1[pos] = vetT[esq + pos];
                             }
@@ -723,9 +883,50 @@ public class algoritimo extends Application {
                             iAux = 0;
                             j = 0;
                             k = esq;
-                            while (iAux < tam1 && j < tam2) {
+                            Platform.runLater(()->{
+                                CodigoM[6].setFill(Color.WHITE);
+                                CodigoM[7].setFill(Color.WHITE);
+                                CodigoM[8].setFill(Color.RED);
 
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            Platform.runLater(()->{
+                                CodigoM[8].setFill(Color.WHITE);
+                                CodigoM[9].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            while (iAux < tam1 && j < tam2) {
+                                Platform.runLater(()->{
+                                    CodigoM[9].setFill(Color.WHITE);
+                                    CodigoM[10].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 if (vet1[iAux] <= vet2[j]) {
+                                    Platform.runLater(()->{
+                                        CodigoM[10].setFill(Color.WHITE);
+                                        CodigoM[11].setFill(Color.RED);
+
+                                    });
+                                    try {
+                                        Thread.sleep(200);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                     //permutação na tela
                                     for (int i = 0; i < 10; i++) {
                                         Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
@@ -763,6 +964,16 @@ public class algoritimo extends Application {
                                     k++;
                                     iAux++;
                                 } else {
+                                    Platform.runLater(()->{
+                                        CodigoM[10].setFill(Color.WHITE);
+                                        CodigoM[13].setFill(Color.RED);
+
+                                    });
+                                    try {
+                                        Thread.sleep(200);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                     //permutação na tela
                                     for (int i = 0; i < 10; i++) {
                                         Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
@@ -800,8 +1011,47 @@ public class algoritimo extends Application {
                                     k++;
                                     j++;
                                 }
+                                Platform.runLater(()->{
+
+                                    CodigoM[10].setFill(Color.WHITE);
+                                    CodigoM[11].setFill(Color.WHITE);
+                                    CodigoM[12].setFill(Color.WHITE);
+                                    CodigoM[13].setFill(Color.WHITE);
+                                    CodigoM[14].setFill(Color.WHITE);
+                                    CodigoM[9].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            Platform.runLater(()->{
+                                CodigoM[9].setFill(Color.WHITE);
+                                CodigoM[10].setFill(Color.WHITE);
+                                CodigoM[11].setFill(Color.WHITE);
+                                CodigoM[12].setFill(Color.WHITE);
+                                CodigoM[13].setFill(Color.WHITE);
+                                CodigoM[15].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                             while (iAux < tam1) {
+                                Platform.runLater(()->{
+                                    CodigoM[15].setFill(Color.WHITE);
+                                    CodigoM[16].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 //permutação na tela
                                 for (int i = 0; i < 10; i++) {
                                     Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
@@ -838,8 +1088,38 @@ public class algoritimo extends Application {
                                 vetT[k] = vet1[iAux];
                                 k++;
                                 iAux++;
+                                Platform.runLater(()->{
+                                    CodigoM[16].setFill(Color.WHITE);
+                                    CodigoM[15].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            Platform.runLater(()->{
+                                CodigoM[15].setFill(Color.WHITE);
+                                CodigoM[17].setFill(Color.RED);
+
+                            });
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                             while (j < tam2) {
+                                Platform.runLater(()->{
+                                    CodigoM[17].setFill(Color.WHITE);
+                                    CodigoM[18].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 //permutação na tela
                                 for (int i = 0; i < 10; i++) {
                                     Platform.runLater(() -> vet[k].setLayoutY(vet[k].getLayoutY() + 5));
@@ -876,7 +1156,22 @@ public class algoritimo extends Application {
                                 vetT[k] = vet2[j];
                                 j++;
                                 k++;
+                                Platform.runLater(()->{
+                                    CodigoM[18].setFill(Color.WHITE);
+                                    CodigoM[17].setFill(Color.RED);
+
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            for (int i = 0; i < CodigoT.length ; i++)
+                                CodigoT[i].setFill(Color.WHITE);
+                            for (int i = 0; i <CodigoM.length ; i++)
+                                    CodigoM[i].setFill(Color.WHITE);
+
 
                             for (int i = 0; i <vetor1.length; i++) {
                                 int finalI = i;
