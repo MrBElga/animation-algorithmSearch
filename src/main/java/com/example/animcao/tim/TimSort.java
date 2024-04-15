@@ -105,10 +105,10 @@ public class TimSort extends Application {
 
         // Adicionando os botões representando o vetor
         vet = new Button[tamanhoVetor];
-        int valorAleatorio = 14;
+
         for (int i = 0; i < tamanhoVetor; i++) {
+            int valorAleatorio =  random.nextInt(1000);
             vet[i] = new Button(String.valueOf(valorAleatorio));
-            valorAleatorio--;
             vet[i].setLayoutX(150 + i * 60);
             vet[i].setLayoutY(100);
             vet[i].setMinHeight(40);
